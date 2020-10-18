@@ -15,7 +15,7 @@ const Formulario = () => {
                 <form>
                     <div>
                         <label className="white">Introduce el nombre del autor:</label>
-                        <input type="text" className="writeAuthor" />
+                        <input type="text" className="writeAuthor" name ="author1"/>
                         <span className="deleted" onClick={(e) =>{ deleteAuthor(); e.preventDefault() }}>🗑️</span>
                     </div>
 
