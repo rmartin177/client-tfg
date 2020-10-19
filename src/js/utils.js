@@ -16,6 +16,8 @@ export function addAuthor() {
     span.innerText = "🗑️";
     span.classList.add("deleted");
 
+    //cogemos todos los input que hay en la página para saber si se pueden borrar
+
     //añadimos la funcionalidad que hace que se borre el autor
     span.onclick = (e) => {
         var nElements = document.querySelectorAll("form .writeAuthor").length;
