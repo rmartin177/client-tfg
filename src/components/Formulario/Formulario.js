@@ -4,8 +4,9 @@ import { deleteAuthor } from '../../js/utils'
 import M from "materialize-css"
 
 
-const Formulario = () => {
+const Formulario = (props) => {
 
+    const {setmostrar} = props;
     //Array con los nombre de los autores
     const autores = [];
 
@@ -18,6 +19,8 @@ const Formulario = () => {
             if (nombre.value !== "")
                 autores.push(nombre.value);
         });
+
+        setmostrar(false);
 
     };
 
@@ -40,6 +43,7 @@ const Formulario = () => {
         var label = document.createElement("label");
         label.innerHTML = "Nombre del autor:";
         label.setAttribute("for", "author" + (number + 1));
+        label.classList.add("black-text");
 
         //creamos el span que es donde ira el borrar 
         var span = document.createElement("span");
@@ -53,6 +57,7 @@ const Formulario = () => {
             if (nElements <= 1)
                 M.toast({ html: 'Operación no permitida', classes: 'rounded' });
             else {
+                label.remove();
                 input.remove();
                 span.remove();
             }
@@ -80,49 +85,20 @@ const Formulario = () => {
                 <form onSubmit={guardarAutores} className="col s12">
 
                     <div className="input-field col s12">
-                        <label for="author1">Nombre del autor:</label>
+                        <label for="author1" className="black-text">Nombre del autor:</label>
                         <input type="text" className="writeAuthor validate" name="author1" />
                         <span className="deleted" onClick={(e) => { deleteAuthor(); e.preventDefault() }}>🗑️</span>
                     </div>
 
 
-                    <button className="btn" onClick={addAuthor}>
+                    <button className="btn green darken-3" onClick={addAuthor}>
+                        <i class="material-icons left">add_circle_outline</i>
                         Añadir más autores
                     </button>
                     <div>
                         <input type="submit" id="send" className="btn" value="Aceptar" />
                     </div>
                 </form>
-            </div>
-
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </Fragment>
     )
