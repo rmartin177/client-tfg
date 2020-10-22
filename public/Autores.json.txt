@@ -1,0 +1,103 @@
+{
+    "authors": 
+        [
+                {
+                    "name": "miguel bose",
+                    /* Indices de Google Scholar y Scopus */
+                    "indices": {
+                        "indice_h_total_google_scholar": 126,
+                        "indice_h_5_años_google_scholar": 126,
+                        "indice_i10_total_google_scholar": 126,
+                        "indice_i10_5_años_google_scholar": 126,
+                        "indice_h_total_scopus": 126
+                    },
+                    "citas": {
+                        "citas_total_google_scholar": 9000,
+                        "citas_total_5_años_google_scholar": 9000,
+                        "citas_total_scopus": 9000,
+                    },                    
+                    /* Ranking JCR [[Esto todavía no lo sabéis hacer]] */ 
+                    "jcr": {
+                        "numero_publicaciones_q1": 3,
+                        "numero_publicaciones_q2": 4,
+                        "numero_publicaciones_q3": 5,
+                        "numero_publicaciones_q4": 1
+                    },
+                    /* Ranking GII-GRIN-SCIE (el del año más cercano sin pasarse) http://gii-grin-scie-rating.scie.es/ */
+                    "ggs": {
+                        "numero_publicaciones_class_1": 3,
+                        "numero_publicaciones_class_2": 3,
+                        "numero_publicaciones_class_3": 3
+                    },
+                    /* Ranking CORE (el del año más cercano sin pasarse) http://portal.core.edu.au/conf-ranks/ */
+                    "core": {
+                        "numero_publicaciones_A*": 3,
+                        "numero_publicaciones_A": 3,
+                        "numero_publicaciones_B": 3,
+                        "numero_publicaciones_C": 3
+                    }
+                }
+        ],
+    "publications": 
+        [
+            {
+                "type": "article", /* Este es el tipo tal cual lo da DBLP */
+                                   /* Hay que evitar las entradas <article> con publtype="informal" */
+                "authors" : ["Cristina Valentina Espinosa", "Enrique Martin-Martin", "Adrián Riesco 0001", "Juan Rodríguez-Hortalá"],
+                "title": "FlinkCheck: Property-Based Testing for Apache Flink",
+                "pages": "150369-150382",
+                "year": 2019,
+                "volume": 7,
+                "issue": 8, /* A veces tienen, a veces no */
+                "journal": "IEEE Access",
+                /* Citas */
+                "citas": {
+                    "numero_citas_google_scholar": 5,
+                    "numero_citas_scopus": 4
+                },
+                /* Ranking de revista (JCR) */
+                "jcr": {
+                    /* Si la revista está en varias categorías, poner los datos de la categoría en la que tiene mejor posición */ 
+                    "categoria": "Mathematics, Applied", 
+                    "impact_factor": 3.2345,
+                    "position": "5/34",
+                    "quartile": 1
+                }
+            },
+            {
+                "type": "inproceedings",
+                "authors" : ["Ha Thi Thu Doan", "Adrián Riesco 0001", "Kazuhiro Ogata 0001"],
+                "title": "An Environment for Specifying and Model Checking Mobile Ring Robot Algorithms",
+                "pages": "111-126",
+                "year": 2019,
+                "book_title": "Stabilization, Safety, and Security of Distributed Systems - 21st International Symposium, {SSS} 2019, Pisa, Italy, October 22-25, 2019, Proceedings",
+                /* Citas */
+                "citas": {
+                    "numero_citas_google_scholar": 5,
+                    "numero_citas_scopus": 4
+                },
+                /* Ranking de congreso (GII-GRIN-SCIE y Core - el año más cercano sin pasarse) */
+                "core": {
+                    "core_año": 2020,
+                    "core_category": "A+"  /* Si no tiene ranking CORE, ambos a null */ 
+                },
+                "ggs": {
+                    "year": 2018,
+                    "class": 2  /* Si no tiene ranking GGS o la clase es "work in progress", ambos a null */
+                }
+            },
+            {
+                "type": "incollection",
+                "authors" : ["Manuel Clavel", "Francisco Durán", ..., "Alberto Verdejo"],
+                "title": "Mobile Maude",
+                "pages": "485-522",
+                "year": 2007,
+                "book_title": "All About Maude",
+                /* Citas */
+                "citas": {
+                    "numero_citas_google_scholar": 5,
+                    "numero_citas_scopus": 4
+                }
+            }
+    ]
+}

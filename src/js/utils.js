@@ -1,35 +1,21 @@
-export function addAuthor(){
-    //seleccionamos el formulario
-    var formulario = document.querySelector("form > div");
+import M from "materialize-css"
+// esta función es solo para el primer autor
+export const deleteAuthor = () => {
     
-    //creamos la label y añadimos la clase white
-    var label = document.createElement("label");
-    label.innerHTML = "Introduce el nombre del autor:";
-    label.classList.add("white");
 
-    //creamos el input y le ponemos la case en css
-    var input = document.createElement("input");
-    input.classList.add("writeAuthor");
-
-    //creamos el span que es donde ira el borrar 
-    var span = document.createElement("span");
-    span.innerText="🗑️";
-    span.classList.add("deleted");
-
-    //añadimos la funcionalidad que hace que se borre el autor
-    span.onclick = (e)=>{
-        input.remove();
+    var nElements = document.querySelectorAll("form .writeAuthor").length;
+    console.log(nElements);
+    //miramos si hay mas de un elemento
+    if (nElements < 2)
+         M.toast({html: 'Operación no permitida', classes: 'rounded'});
+    else {
+        //seleccionamos el primer autor y le borramos
+        var label = document.querySelector("form  label");
+        var input = document.querySelector("form .writeAuthor");
+        var span = document.querySelector("form span")
         label.remove();
+        input.remove();
         span.remove();
-        e.preventDefault();
     }
-    //se lo insertamos
-    formulario.appendChild(label);
-    formulario.appendChild(input);
-    formulario.appendChild(span);
-}
-
-export const deleteAuthor = () =>{
-    alert("Operación no permitida");
 }
 

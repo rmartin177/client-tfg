@@ -1,21 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Piedra&display=swap');
  *{
     margin:0;
     /* border: 1px solid lime; */
-    font-family: 'Piedra';
 
 } 
-body{
-     background-color: rgb(27, 26, 26); 
-}
-.white{
-    color: white;
-}
+
 #contenedor-principal{
-    display: flex;
     justify-content: center;
     text-align: center;
-    background-color: rgb(20, 49, 20);
+    background-color:#a5d6a7 ;
     border-radius: 1rem;
     margin-top: 3rem;
     width: 50%;
@@ -24,22 +16,27 @@ body{
     padding:1rem
 }
 .writeAuthor{
-    width: 87%;
+    width: 87% !important;
     margin-left: 0.5rem;
     margin-bottom: 0.5rem;
     height: 1.5rem;
 }
-#addAuthor{
-    padding: 0.25rem;
-    background-color: blue;
-    color: white;
-    border: 1px solid whitesmoke;
-    margin-bottom: 0.5rem;
-}
+
 .deleted{
-    background-color: red;
-    padding: 0.285rem 0.2rem;
+    background-color: #ff5252;
+    padding: 0.25rem 0.2rem;
 }
 .deleted:hover{
     cursor: pointer;
 }
+#send{
+    margin-top: 1rem;
+}
+@media only screen and (max-width: 633px) {
+    .writeAuthor{
+        width: 80% !important;
+        margin-left: 0.5rem;
+        margin-bottom: 0.5rem;
+        height: 1.5rem;
+    }
+  }
