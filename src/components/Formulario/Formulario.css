@@ -1,0 +1,42 @@
+ *{
+    margin:0;
+    /* border: 1px solid lime; */
+
+} 
+
+#contenedor-principal{
+    justify-content: center;
+    text-align: center;
+    background-color:#a5d6a7 ;
+    border-radius: 1rem;
+    margin-top: 3rem;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: auto;
+    padding:1rem
+}
+.writeAuthor{
+    width: 87% !important;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 1.5rem;
+}
+
+.deleted{
+    background-color: #ff5252;
+    padding: 0.25rem 0.2rem;
+}
+.deleted:hover{
+    cursor: pointer;
+}
+#send{
+    margin-top: 1rem;
+}
+@media only screen and (max-width: 633px) {
+    .writeAuthor{
+        width: 80% !important;
+        margin-left: 0.5rem;
+        margin-bottom: 0.5rem;
+        height: 1.5rem;
+    }
+  }
