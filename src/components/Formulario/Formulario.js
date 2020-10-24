@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import "./Formulario.css"
 import { deleteAuthor } from '../../js/utils'
 import M from "materialize-css"
-
+import axios from "../../config/axios"
 
 const Formulario = (props) => {
 
@@ -10,8 +10,18 @@ const Formulario = (props) => {
     //Array con los nombre de los autores
     const autores = [];
 
+    async function getJson(authors){
+        try{
+            const results = axios.post("/api/getjson", authors)
+            //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
+        }catch(error){
+            console.log(error)
+        }
+        
+    }
+
     //Funcion que se ejecuta cuando se escribe en algun input
-    const guardarAutores = (e) => {
+    const guardarAutores = async (e) => {
         e.preventDefault();
 
         var nAutores = document.querySelectorAll("form .writeAuthor");
@@ -21,7 +31,7 @@ const Formulario = (props) => {
         });
 
         setmostrar(false);
-
+        await getJson(autores)
     };
 
     const addAuthor = (e) => {
