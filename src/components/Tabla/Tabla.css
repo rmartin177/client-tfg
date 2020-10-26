@@ -1,3 +1,6 @@
+*{
+    margin: 0;
+}
 table.customTable {
     width: 100%;
     background-color: #FFFFFF;
@@ -17,4 +20,15 @@ table.customTable td, table.customTable th {
 
 table.customTable thead {
     background-color: #A6B1F8;
+}
+
+.tabs{
+    background-color:#43a047;
+    border-top-left-radius:2rem ;
+    border-top-right-radius:2rem ;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
 }

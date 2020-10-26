@@ -1,16 +1,28 @@
 import React, { Fragment } from 'react'
 import './Tabla.css'
+import {downloadObjectAsJson} from '../../js/utils'
 
 const Tabla = (props) => {
 
-    const { setmostrar } = props;
+    const { setShow ,result} = props;
 
     const back = () => {
-        setmostrar(true);
+        setShow(true);
     }
+
     return (
         <Fragment>
+            <div className="row">
+                <div className="col s2">
+                    <button className="tabs">Autores</button>
+                </div>
 
+                <div className="col s2">
+                    <button className="tabs">Publicaciones</button>
+                </div>
+            </div>
+
+            
             <div className="row">
 
                 <div className="col s12">
@@ -40,7 +52,7 @@ const Tabla = (props) => {
                                         <li>indice_i10_5_años_google_scholar: 126</li>
                                         <li>indice_h_total_scopus: 126</li>
                                     </ul>
-                                   
+
                                 </td>
                                 <td>
                                     <ul>
@@ -65,24 +77,23 @@ const Tabla = (props) => {
                                         <li>numero_publicaciones_class_1: 3</li>
                                         <li>numero_publicaciones_class_2: 3</li>
                                         <li>numero_publicaciones_class_3: 3</li>
-                                      
+
                                     </ul>
-                                   
+
                                 </td>
                                 {/* core */}
-                                <td>    
+                                <td>
                                     <ul>
                                         <li>numero_publicaciones_A*: 3</li>
-                                        <li>numero_publicaciones_B: 3</li>  
+                                        <li>numero_publicaciones_B: 3</li>
                                         <li>numero_publicaciones_C: 3</li>
-                                    </ul>      
+                                    </ul>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
                 </div>
-
                 <div className="row">
 
                     <div className="col s12">
@@ -144,7 +155,12 @@ const Tabla = (props) => {
 
                 <div className="row">
                     <div className="col s12">
-                        <a className="btn" href="Autores.json.txt" target="_blank" download><i class="material-icons right">file_download</i>Descargar JSON</a>
+                        <a className="btn" id="downloadJson" onClick={() =>downloadObjectAsJson(result,"Resultado")}>
+                            <i className="material-icons right">
+                                file_download
+                            </i>
+                            Descargar JSON
+                        </a>
                         <a className="btn" onClick={back}><i class="material-icons right">reply</i>volver</a>
                     </div>
 

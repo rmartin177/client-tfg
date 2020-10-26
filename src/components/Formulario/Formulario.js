@@ -3,25 +3,31 @@ import "./Formulario.css"
 import { deleteAuthor } from '../../js/utils'
 import M from "materialize-css"
 import axios from "../../config/axios"
+import Spinner from '../Spinner/Spinner'
 
 const Formulario = (props) => {
 
-    const {setmostrar} = props;
+    const { setShow, setresult } = props;
+    const [showSpinner, setSpinner] = useState(false);
     //Array con los nombre de los autores
     const autores = [];
 
-    async function getJson(authors){
-        try{
-            const results = axios.post("/api/getjson", authors)
+    async function getJson(authors) {
+        try {
             //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
-        }catch(error){
-            console.log(error)
+            //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
+            setresult(await axios.post("/api/getjson", authors));
+            return true;
+
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        
+
     }
 
-    //Funcion que se ejecuta cuando se escribe en algun input
-    const guardarAutores = async (e) => {
+    //Funcion que se ejecuta cuando se pulsa el submit
+    const saveAuthors = async (e) => {
         e.preventDefault();
 
         var nAutores = document.querySelectorAll("form .writeAuthor");
@@ -30,13 +36,26 @@ const Formulario = (props) => {
                 autores.push(nombre.value);
         });
 
-        setmostrar(false);
-        await getJson(autores)
+        //se comprueba que por lo menos haya un autor
+        if (autores.length === 0) {
+            var toastHTML = '<span class="errorEmpty">El campo autor está vacio.</span>';
+            M.toast({ html: toastHTML, classes: 'rounded' });
+        } else {
+            //Activamos el spinner mientras carga la petición
+            setSpinner(true);
+            if (await getJson(autores)) {
+                //cuando este todo ok damos paso a la siguiente panatalla y quitamos el spinner
+                setSpinner(false);
+                setShow(false);
+            }
+        }
+
+
     };
 
     const addAuthor = (e) => {
         //seleccionamos el formulario
-        var formulario = document.querySelector("form > div");
+        var form = document.querySelector("form > div");
         //antes de crear el input tenemos que asignarle bien el id de su name
         var inputs = document.querySelectorAll("form .writeAuthor");
         var lastChild = inputs[inputs.length - 1];
@@ -52,7 +71,7 @@ const Formulario = (props) => {
         //creamos la label
         var label = document.createElement("label");
         label.innerHTML = "Nombre del autor:";
-        label.setAttribute("for", "author" + (number + 1));
+        label.setAttribute("hmtlFor", "author" + (number + 1));
         label.classList.add("black-text");
 
         //creamos el span que es donde ira el borrar 
@@ -81,35 +100,48 @@ const Formulario = (props) => {
         div.appendChild(label);
         div.appendChild(input);
         div.appendChild(span);
-        formulario.appendChild(div);
+        form.appendChild(div);
         e.preventDefault();
     }
 
     return (
         <Fragment>
             <h1>
-                Formulario
+                TGF
             </h1>
-
-            <div id="contenedor-principal">
-                <form onSubmit={guardarAutores} className="col s12">
-
-                    <div className="input-field col s12">
-                        <label for="author1" className="black-text">Nombre del autor:</label>
-                        <input type="text" className="writeAuthor validate" name="author1" />
-                        <span className="deleted" onClick={(e) => { deleteAuthor(); e.preventDefault() }}>🗑️</span>
+            {
+                showSpinner
+                    ?
+                    <div className="contenedor-principal">
+                        <div>
+                            Su petición se esta ejecutando, espere unos segundos...
+                        </div>
+                        <Spinner/>
                     </div>
 
+                    :
+                    <div className="contenedor-principal">
+                        <form onSubmit={saveAuthors} className="col s12">
 
-                    <button className="btn green darken-3" onClick={addAuthor}>
-                        <i class="material-icons left">add_circle_outline</i>
+                            <div className="input-field col s12">
+                                <label htmlFor="author1" className="black-text">Nombre del autor:</label>
+                                <input type="text" className="writeAuthor validate" name="author1" />
+                                <span className="deleted" role="img" aria-label="bin" onClick={(e) => { deleteAuthor(); e.preventDefault() }}>
+                                    🗑️
+                        </span>
+                            </div>
+
+
+                            <button className="btn green darken-3" onClick={addAuthor}>
+                                <i className="material-icons left">add_circle_outline</i>
                         Añadir más autores
                     </button>
-                    <div>
-                        <input type="submit" id="send" className="btn" value="Aceptar" />
+                            <div>
+                                <input type="submit" id="send" className="btn" value="Aceptar" />
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
+            }
         </Fragment>
     )
 }

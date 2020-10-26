@@ -4,16 +4,21 @@ import Formulario from './components/Formulario/Formulario';
 import Tabla from './components/Tabla/Tabla';
 
 function App() {
-  const [mostrar, setmostrar] = useState(true);
+  //state que mostrará o no el formulario
+  const [show, setShow] = useState(true);
+
+  //state que contiene el resultado de la peticion
+  const [result, setresult] = useState({});
 
   return (
     <div className="App">
-      {mostrar
+      {/* <Tabla setShow={setShow} /> */}
+       {show
         ?
-        <Formulario setmostrar={setmostrar} />
+        <Formulario setShow={setShow} setresult={setresult} />
         :
-        <Tabla setmostrar={setmostrar} />
-      }
+        <Tabla setShow={setShow} result={result}/>
+      } 
     </div>
   );
 }
