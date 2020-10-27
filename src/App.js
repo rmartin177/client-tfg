@@ -12,13 +12,13 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Tabla setShow={setShow} /> */}
-       {show
+        {/* <Tabla setShow={setShow} />   */}
+        {show
         ?
         <Formulario setShow={setShow} setresult={setresult} />
         :
         <Tabla setShow={setShow} result={result}/>
-      } 
+      }   
     </div>
   );
 }

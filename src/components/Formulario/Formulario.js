@@ -16,7 +16,7 @@ const Formulario = (props) => {
         try {
             //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
             //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
-            setresult(await axios.post("/api/getjson", authors));
+            setresult((await axios.post("/api/getjson", authors)).data);
             return true;
 
         } catch (error) {
@@ -70,9 +70,9 @@ const Formulario = (props) => {
         input.setAttribute("type", "text");
         //creamos la label
         var label = document.createElement("label");
-        label.innerHTML = "Nombre del autor:";
+        label.innerHTML = "Author Name:";
         label.setAttribute("hmtlFor", "author" + (number + 1));
-        label.classList.add("black-text");
+        label.classList.add("white-text");
 
         //creamos el span que es donde ira el borrar 
         var span = document.createElement("span");
@@ -114,7 +114,7 @@ const Formulario = (props) => {
                     ?
                     <div className="contenedor-principal">
                         <div>
-                            Su petición se esta ejecutando, espere unos segundos...
+                            We are working on it,please wait...
                         </div>
                         <Spinner/>
                     </div>
@@ -124,7 +124,7 @@ const Formulario = (props) => {
                         <form onSubmit={saveAuthors} className="col s12">
 
                             <div className="input-field col s12">
-                                <label htmlFor="author1" className="black-text">Nombre del autor:</label>
+                                <label htmlFor="author1" className="white-text">Author Name:</label>
                                 <input type="text" className="writeAuthor validate" name="author1" />
                                 <span className="deleted" role="img" aria-label="bin" onClick={(e) => { deleteAuthor(); e.preventDefault() }}>
                                     🗑️
@@ -132,12 +132,15 @@ const Formulario = (props) => {
                             </div>
 
 
-                            <button className="btn green darken-3" onClick={addAuthor}>
+                            <button className="btn black-text grey lighten-1" onClick={addAuthor}>
                                 <i className="material-icons left">add_circle_outline</i>
-                        Añadir más autores
+                        Add author
                     </button>
                             <div>
-                                <input type="submit" id="send" className="btn" value="Aceptar" />
+                                <button type="submit" id="send" className="btn">
+                                    <i className="material-icons right">send</i>
+                                    Acept
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -10,7 +10,7 @@ body{
 .contenedor-principal{
     justify-content: center;
     text-align: center;
-    background-color:#a5d6a7 ;
+    background-color:#1b5e20 ;
     border-radius: 1rem;
     margin-top: 3rem;
     width: 50%;
@@ -40,6 +40,8 @@ body{
 }
 #send{
     margin-top: 1rem;
+    background-color: #8d8d8d;
+    color: black;
 }
 @media only screen and (max-width: 633px) {
     .writeAuthor{
