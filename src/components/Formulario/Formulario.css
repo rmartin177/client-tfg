@@ -1,13 +1,16 @@
  *{
     margin:0;
     /* border: 1px solid lime; */
-
 } 
 
-#contenedor-principal{
+body{
+    background-image: url(../../img/fondo.jpg);
+  }
+
+.contenedor-principal{
     justify-content: center;
     text-align: center;
-    background-color:#a5d6a7 ;
+    background-color:#1b5e20 ;
     border-radius: 1rem;
     margin-top: 3rem;
     width: 50%;
@@ -22,6 +25,12 @@
     height: 1.5rem;
 }
 
+.errorEmpty{
+    background-color: #ff5252 !important;
+    border-radius: 2rem;
+    padding: 2rem;
+    margin:0;
+}
 .deleted{
     background-color: #ff5252;
     padding: 0.25rem 0.2rem;
@@ -31,6 +40,8 @@
 }
 #send{
     margin-top: 1rem;
+    background-color: #8d8d8d;
+    color: black;
 }
 @media only screen and (max-width: 633px) {
     .writeAuthor{
