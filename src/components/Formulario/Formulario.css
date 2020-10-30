@@ -37,7 +37,7 @@ body{
     margin:0;
 }
 .deleted{
-    background-color: #ff5252;
+    background-color: papayawhip;
     padding: 0.25rem 0.2rem;
 }
 .deleted:hover{
