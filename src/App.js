@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Formulario from './components/Formulario/Formulario';
+import Tabla from './components/Tabla/Tabla';
 
 function App() {
+  //state que mostrará o no el formulario
+  const [show, setShow] = useState(true);
+
+  //state que contiene el resultado de la peticion
+  const [result, setresult] = useState({});
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        {/* <Tabla setShow={setShow} />   */}
+        {show
+        ?
+        <Formulario setShow={setShow} setresult={setresult} />
+        :
+        <Tabla setShow={setShow} result={result}/>
+      }   
     </div>
   );
 }
