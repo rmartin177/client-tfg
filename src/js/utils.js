@@ -136,5 +136,24 @@ export const searchOnTable = () => {
             
         }
     }
-
 } 
+
+export const tabsFunction = (id)=>{
+    var tabcontent, tablinks;
+    //oculta todo el contenido de las pestañas
+    tabcontent = document.getElementsByClassName("tabContent");
+    for (let i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // quita la clase activo de las pestañas
+    tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace("active", "");
+    }
+
+    // le añade activo a la que estamos pulsando y la enseña
+    var current = document.getElementById(id);
+    current.style.display = "block";
+    current.classList.add("active");
+}
