@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import './Tabla.css'
-import { downloadObjectAsJson, writeAuthorOnTable, searchOnTable} from '../../js/utils'
+import { downloadObjectAsJson, writeAuthorOnTable, searchOnTable, tabsFunction } from '../../js/utils'
 
 const Tabla = (props) => {
     //props
@@ -16,24 +16,30 @@ const Tabla = (props) => {
         writeAuthorOnTable(result, paginaActual, entradasPorPagina);
     }, [result])
 
-    const previousPage = () =>{
+    const previousPage = () => {
         var nuevaPaginaActual = paginaActual - 1;
-        if(nuevaPaginaActual < 1)
+        if (nuevaPaginaActual < 1)
             return;
-        else{
+        else {
             writeAuthorOnTable(result, nuevaPaginaActual, entradasPorPagina);
             setpaginaActual(nuevaPaginaActual);
         }
     }
 
-    const nextPage = () =>{
+    const nextPage = () => {
         var nuevaPaginaActual = paginaActual + 1;
-        if(nuevaPaginaActual > totalPaginas)
+        if (nuevaPaginaActual > totalPaginas)
             return;
-        else{
+        else {
             writeAuthorOnTable(result, nuevaPaginaActual, entradasPorPagina);
             setpaginaActual(nuevaPaginaActual);
         }
+    }
+
+    const entries = () =>{
+        console.log("hola")
+        var nEntries = document.getElementById("entries").value;
+        writeAuthorOnTable(result, paginaActual, nEntries);
     }
 
     const back = () => {
@@ -43,17 +49,16 @@ const Tabla = (props) => {
     return (
         <Fragment>
             <div className="row">
-                <div className="col s2" id="tabAuthor">
-                    <button className="tabs">Autores</button>
-                </div>
-
-                <div className="col s2" id="tabPublications">
-                    <button className="tabs">Publicaciones</button>
+                <div className="col s12">
+                    <ul className="tabs">
+                        <li className="tab col s6" onClick={() => tabsFunction("tabAuthor")}><a className="tablinks">Authors</a></li>
+                        <li className="tab col s6" onClick={() => tabsFunction("tabPublications")}><a className="tablinks">Publications</a></li>
+                    </ul>
                 </div>
             </div>
 
 
-            <div className="row">
+            <div className="row tabContent" id="tabAuthor">
 
                 <div className="col s12">
                     <h3>Autores</h3>
@@ -79,7 +84,7 @@ const Tabla = (props) => {
                                 </ul>
                             </div>
 
-                            <div class="search">
+                            <div className="search">
                                 <input type="search" className="search-input" placeholder="Search..." />
                             </div>
                         </div>
@@ -144,34 +149,34 @@ const Tabla = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row">
+            <div className="row tabContent non-display" id="tabPublications">
 
                 <div className="col s12">
-                    <h3>Publicaciones</h3>
+                    <h3>Publications</h3>
                     <div className="datatable-container">
                         <div className="header-tools">
-                            <div class="tools">
+                            <div className="tools">
                                 <ul>
                                     <li>
                                         <button>
-                                            <i class="material-icons">add_circle</i>
+                                            <i className="material-icons">add_circle</i>
                                         </button>
                                     </li>
                                     <li>
                                         <button>
-                                            <i class="material-icons">edit</i>
+                                            <i className="material-icons">edit</i>
                                         </button>
                                     </li>
                                     <li>
                                         <button>
-                                            <i class="material-icons">delete</i>
+                                            <i className="material-icons">delete</i>
                                         </button>
                                     </li>
                                 </ul>
                             </div>
 
                             <div class="search">
-                                <input type="search"  id="myInputPublications" class="search-input" placeholder="Search..." onKeyUp={()=> searchOnTable()} />
+                                <input type="search" id="myInputPublications" class="search-input" placeholder="Search..." onKeyUp={() => searchOnTable()} />
                             </div>
                         </div>
 
@@ -197,19 +202,18 @@ const Tabla = (props) => {
                         </table>
 
                         <div className="footer-tools">
-                            <div className="list-items">
-                                <select name="n-entries" id="n-entries" className="n-entries">
-                                    <option value="5">5</option>
-                                    <option value="10" selected>10</option>
-                                    <option value="15">15</option>
-                                </select>
-                            </div>
 
                             <div className="pages">
                                 <ul>
-                                    <span>página {paginaActual} de {totalPaginas}</span>
-                                    <li><button onClick={previousPage}>Anterior</button></li>
-                                    <li><button onClick={nextPage}>Siguiente</button></li>
+                                    <li>
+                                        <div className="list-items">
+                                            <label>Number of entries:</label>
+                                            <input type="number" min="1" defaultValue="2" onInput={() => entries} id="entries"/>
+                                        </div>
+                                    </li>
+                                    <span>page {paginaActual} of {totalPaginas}</span>
+                                    <li><button onClick={previousPage}>previous</button></li>
+                                    <li><button onClick={nextPage}>next</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -223,7 +227,7 @@ const Tabla = (props) => {
                         <i className="material-icons right">
                             file_download
                             </i>
-                            Descargar JSON
+                            Download JSON
                         </a>
                     <a className="btn" href="#" onClick={back}><i className="material-icons right">reply</i>volver</a>
                 </div>
