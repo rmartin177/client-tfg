@@ -107,11 +107,37 @@ export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
         //--- Volume ---
         addToTable(elm.volume, tableHead);
 
-        //---Issue ---
+        //--- Issue ---
         addToTable(elm.issue, tableHead);
 
         //--- book title ---
         addToTable(elm.book_title, tableHead);
+
+        //--- quotes ---
+        let tdQuotes = document.createElement("td");
+        tdQuotes.innerText = "Siguiente Spring";
+        tableHead.appendChild(tdQuotes);
+
+        //--- core ---
+        let tdCore = document.createElement("td");
+        tdCore.innerText = "Siguiente Spring";
+        tableHead.appendChild(tdCore);
+
+        //--- ggs ---
+        let tdggs = document.createElement("td");
+        let ulggs = document.createElement("ul");
+        if(elm.gss){
+            elm.gss.forEach(element => {
+                let li = document.createElement("li");
+                li.innerText = "■ " + element;
+                ulggs.appendChild(li);
+            });
+        }else{
+            ulggs.innerText="-";
+        }
+        tdggs.appendChild(ulggs);
+        tableHead.appendChild(tdggs);
+        
 
         //Se agrega toda la fila a la tabla
         dataTableElements.appendChild(tableHead);

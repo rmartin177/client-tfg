@@ -36,7 +36,8 @@ const Tabla = (props) => {
         }
     }
 
-    const entries = () =>{
+    const entries = () => {
+        console.log("entro")
         var nEntries = document.getElementById("entries").value;
         writeAuthorOnTable(result, paginaActual, nEntries);
     }
@@ -155,23 +156,10 @@ const Tabla = (props) => {
                     <div className="datatable-container">
                         <div className="header-tools">
                             <div className="tools">
-                                <ul>
-                                    <li>
-                                        <button>
-                                            <i className="material-icons">add_circle</i>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button>
-                                            <i className="material-icons">edit</i>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button>
-                                            <i className="material-icons">delete</i>
-                                        </button>
-                                    </li>
-                                </ul>
+                                <div className="n_entries">
+                                    <label htmlFor="entries">Number of entries:</label>
+                                    <input type="number" size="2" min="1" defaultValue={entradasPorPagina} onKeyUp={() => entries()} id="entries" />
+                                </div>
                             </div>
 
                             <div class="search">
@@ -204,12 +192,6 @@ const Tabla = (props) => {
 
                             <div className="pages">
                                 <ul>
-                                    <li>
-                                        <div className="list-items">
-                                            <label>Number of entries:</label>
-                                            <input type="number" min="1" defaultValue="2" onInput={() => entries} id="entries"/>
-                                        </div>
-                                    </li>
                                     <span>page {paginaActual} of {totalPaginas}</span>
                                     <li><button onClick={previousPage}>previous</button></li>
                                     <li><button onClick={nextPage}>next</button></li>
