@@ -6,7 +6,7 @@ const Tabla = (props) => {
     //props
     const { setShow, result } = props;
 
-    const entradasPorPagina = 2;
+    const entradasPorPagina = 6;
     //paginacion
     const [paginaActual, setpaginaActual] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);

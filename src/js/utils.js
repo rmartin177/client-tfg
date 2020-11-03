@@ -127,11 +127,13 @@ export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
         let tdggs = document.createElement("td");
         let ulggs = document.createElement("ul");
         if(elm.gss){
-            elm.gss.forEach(element => {
                 let li = document.createElement("li");
-                li.innerText = "■ " + element;
+                li.innerText = "■ " + exist(elm.gss.year);
                 ulggs.appendChild(li);
-            });
+                let li2 = document.createElement("li");
+                li2.innerText = "■ " + exist(elm.gss.class);
+                ulggs.appendChild(li2);
+            
         }else{
             ulggs.innerText="-";
         }
