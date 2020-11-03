@@ -44,7 +44,7 @@ function exist(obj) {
     if (obj)
         return obj;
     else
-        return "null";
+        return "-";
 }
 
 //funcion que agrega un elmento a la fila de una tabla
