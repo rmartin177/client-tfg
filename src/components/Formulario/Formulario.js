@@ -39,7 +39,7 @@ const Formulario = (props) => {
         //se comprueba que por lo menos haya un autor
         if (autores.length === 0) {
             var toastHTML = '<span class="errorEmpty">El campo autor está vacio.</span>';
-            M.toast({ html: toastHTML, classes: 'rounded' });
+            M.toast({ html: toastHTML, classes: 'rounded',inDuration:50000 });
         } else {
             //Activamos el spinner mientras carga la petición
             setSpinner(true);
@@ -139,7 +139,7 @@ const Formulario = (props) => {
                             <div>
                                 <button type="submit" id="send" className="btn">
                                     <i className="material-icons right">send</i>
-                                    Acept
+                                    send
                                 </button>
                             </div>
                         </form>

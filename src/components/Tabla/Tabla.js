@@ -37,7 +37,6 @@ const Tabla = (props) => {
     }
 
     const entries = () =>{
-        console.log("hola")
         var nEntries = document.getElementById("entries").value;
         writeAuthorOnTable(result, paginaActual, nEntries);
     }
