@@ -1,5 +1,57 @@
 import M from "materialize-css"
 
+//funcion que se encarga de añadir un nuevo input de autor
+export const addAuthor = (e) => {
+    //seleccionamos el formulario
+    var form = document.querySelector("form > div");
+    //antes de crear el input tenemos que asignarle bien el id de su name
+    var inputs = document.querySelectorAll("form .writeAuthor");
+    var lastChild = inputs[inputs.length - 1];
+    var name = lastChild.getAttribute("name");
+    var number = parseInt(name.split("r")[1]);
+
+    //creamos el input
+    var input = document.createElement("input");
+    input.classList.add("writeAuthor");
+    input.classList.add("validate");
+    input.setAttribute("name", "author" + (number + 1));
+    input.setAttribute("type", "text");
+    //creamos la label
+    var label = document.createElement("label");
+    label.innerHTML = "Author Name:";
+    label.setAttribute("hmtlFor", "author" + (number + 1));
+    label.classList.add("white-text");
+
+    //creamos el span que es donde ira el borrar 
+    var span = document.createElement("span");
+    span.innerText = "🗑️";
+    span.classList.add("deleted");
+
+    //cogemos todos los input que hay en la página para saber si se pueden borrar
+    //añadimos la funcionalidad que hace que se borre el autor
+    span.onclick = (e) => {
+        var nElements = document.querySelectorAll("form .writeAuthor").length;
+        if (nElements <= 1)
+            M.toast({ html: 'Operación no permitida', classes: 'rounded' });
+        else {
+            label.remove();
+            input.remove();
+            span.remove();
+        }
+    }
+    var div = document.createElement("div");
+    div.classList.add("input-field");
+    div.classList.add("col");
+    div.classList.add("s12");
+
+    //se lo insertamos
+    div.appendChild(label);
+    div.appendChild(input);
+    div.appendChild(span);
+    form.appendChild(div);
+    e.preventDefault();
+}
+
 // esta función es solo para darle funcionalidad(borrado y no permitir que se borre si el unico) al primer input de autor
 export const deleteAuthor = () => {
 
@@ -18,6 +70,7 @@ export const deleteAuthor = () => {
         span.remove();
     }
 }
+
 
 //Esta funcion se encarga de todo lo que es la parte de descargar el json
 export const downloadObjectAsJson = (exportObj, exportName) => {
@@ -81,9 +134,14 @@ export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
         //Creamos las filas de las tablas y en la de autores creamos una lista
         let tdAuthors = document.createElement("td");
         let ulAuthors = document.createElement("ul");
-        elm.authors.forEach(author => {
+        elm.authors.forEach((author,index) => {
+            //Para una funcionalidad de js solo debo mostrar 2 autores y con el click mostrar todos
             let li = document.createElement("li");
             li.innerText = "■ " + author;
+            //cuando haya mas de dos les añadimos una clase non-display que no dejara que se vea
+            if(index > 1)
+                li.classList.add("non-display");
+
             ulAuthors.appendChild(li);
         });
         tdAuthors.classList.add("authors_");
@@ -126,23 +184,50 @@ export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
         //--- ggs ---
         let tdggs = document.createElement("td");
         let ulggs = document.createElement("ul");
-        if(elm.gss){
+        /*if(elm.gss){
             elm.gss.forEach(element => {
                 let li = document.createElement("li");
                 li.innerText = "■ " + element;
                 ulggs.appendChild(li);
             });
         }else{
-            ulggs.innerText="-";
+            ulggs.innerText="-";    
         }
         tdggs.appendChild(ulggs);
-        tableHead.appendChild(tdggs);
+        tableHead.appendChild(tdggs);*/
         
 
+        //se le agrega la funcionalidad de desplegado a cada fila
+        tableHead.onclick= ()=>{
+            //cogemos los autores de la fila
+            let liAuthors = tableHead.querySelectorAll(".authors_ ul > li");
+            //Por defecto dejamos que se muestren 2 autores
+            if(liAuthors.length > 2){
+                //cogemos el 3 autor y comprobamos si se esta mostrando, si se esta mostrando cuando le demos click se tiene que dejar de ver y vicerversa
+                if(liAuthors[2].classList.contains("non-display")){//Hay que desplegarlos
+                    liAuthors.forEach(elm=>{
+                        if(elm.classList.contains("non-display")){
+                            elm.classList.remove("non-display");
+                            elm.classList.add("yes-display");
+                        }
+                    });
+                }else{//hay que encogerlos
+                    liAuthors.forEach((elm,index)=>{
+                        if(index > 1){
+                            if(elm.classList.contains("yes-display")){
+                                elm.classList.remove("yes-display");
+                                elm.classList.add("non-display");
+                            }
+                        }
+                    });
+                }
+            }
+        };
         //Se agrega toda la fila a la tabla
         dataTableElements.appendChild(tableHead);
     }
 }
+
 
 //funcion que se encarga de hacer la busqueda por autor y titulo
 export const searchOnTable = () => {
@@ -171,11 +256,8 @@ export const searchOnTable = () => {
                         console.log("En autores: " + txtValue + " tamaño array autores: " + liAuthors.length);
                         if (txtValue.toUpperCase().includes(filter)) {
                             tr[i].style.display = "";
-                            console.log("coincide");
                         }else{
                             tr[i].style.display = "none";
-                            console.log("coincide");
-
                         }
                     }
                 } else { //estamos en los autores por tanto hay que recorrerlos y en cuanto encontremos una que coincide mostramos la fila

@@ -6,7 +6,7 @@ const Tabla = (props) => {
     //props
     const { setShow, result } = props;
 
-    const entradasPorPagina = 2;
+    const [entradasPorPagina, setentradasPorPagina] = useState(2);
     //paginacion
     const [paginaActual, setpaginaActual] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
@@ -37,9 +37,9 @@ const Tabla = (props) => {
     }
 
     const entries = () => {
-        console.log("entro")
         var nEntries = document.getElementById("entries").value;
         writeAuthorOnTable(result, paginaActual, nEntries);
+        setentradasPorPagina(nEntries);
     }
 
     const back = () => {
@@ -49,7 +49,7 @@ const Tabla = (props) => {
     return (
         <Fragment>
             <div className="row">
-                <div className="col s12">
+                <div className="col s12 non-padding">
                     <ul className="tabs">
                         <li className="tab col s6" onClick={() => tabsFunction("tabAuthor")}><a className="tablinks">Authors</a></li>
                         <li className="tab col s6" onClick={() => tabsFunction("tabPublications")}><a className="tablinks">Publications</a></li>
@@ -61,7 +61,7 @@ const Tabla = (props) => {
             <div className="row tabContent" id="tabAuthor">
 
                 <div className="col s12">
-                    <h3>Autores</h3>
+                    <h3 className="white-text">Autores</h3>
                     <div className="datatable-container">
                         <div className="header-tools">
                             <div className="tools">
@@ -152,13 +152,13 @@ const Tabla = (props) => {
             <div className="row tabContent non-display" id="tabPublications">
 
                 <div className="col s12">
-                    <h3>Publications</h3>
+                    <h3 className="white-text">Publications</h3>
                     <div className="datatable-container">
                         <div className="header-tools">
                             <div className="tools">
                                 <div className="n_entries">
                                     <label htmlFor="entries">Number of entries:</label>
-                                    <input type="number" size="2" min="1" defaultValue={entradasPorPagina} onKeyUp={() => entries()} id="entries" />
+                                    <input type="number" size="2" min="1" defaultValue={entradasPorPagina} onChange={() => entries()} id="entries" />
                                 </div>
                             </div>
 
@@ -204,13 +204,13 @@ const Tabla = (props) => {
 
             <div className="row">
                 <div className="col s12">
-                    <a className="btn" href="#" id="downloadJson" onClick={() => downloadObjectAsJson(result, "Resultado")}>
+                    <a className="btn blue-grey darken-2" href="#" id="downloadJson" onClick={() => downloadObjectAsJson(result, "Resultado")}>
                         <i className="material-icons right">
                             file_download
                             </i>
                             Download JSON
                         </a>
-                    <a className="btn" href="#" onClick={back}><i className="material-icons right">reply</i>volver</a>
+                    <a className="btn blue-grey darken-2" id="back" href="#" onClick={back}><i className="material-icons right">reply</i>volver</a>
                 </div>
 
             </div>
