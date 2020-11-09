@@ -40,6 +40,7 @@ const Tabla = (props) => {
         var nEntries = document.getElementById("entries").value;
         writeAuthorOnTable(result, paginaActual, nEntries);
         setentradasPorPagina(nEntries);
+        setTotalPaginas(Math.ceil(result.publications.length / nEntries));
     }
 
     const back = () => {
@@ -163,7 +164,7 @@ const Tabla = (props) => {
                             </div>
 
                             <div class="search">
-                                <input type="search" id="myInputPublications" class="search-input" placeholder="Search..." onKeyUp={() => searchOnTable()} />
+                                <input type="search" id="myInputPublications" class="search-input" placeholder="Search..." onKeyUp={() => searchOnTable(result)} />
                             </div>
                         </div>
 

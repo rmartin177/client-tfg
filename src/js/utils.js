@@ -1,4 +1,5 @@
 import M from "materialize-css"
+import { title } from "process";
 
 //funcion que se encarga de añadir un nuevo input de autor
 export const addAuthor = (e) => {
@@ -106,13 +107,39 @@ function addToTable(elm, table) {
     td.innerText = exist(elm);
     table.appendChild(td);
 }
-
+//limpia cualquier elemento
 function clearElement(elm) {
     while (elm.lastElementChild) {
         elm.removeChild(elm.lastElementChild);
     }
 }
 
+//funcion que se encarga de que se expanda la fila
+function expand() {
+    //cogemos los autores de la fila
+    let liAuthors = document.querySelectorAll(".authors_ ul > li");
+    //Por defecto dejamos que se muestren 2 autores
+    if (liAuthors.length > 2) {
+        //cogemos el 3 autor y comprobamos si se esta mostrando, si se esta mostrando cuando le demos click se tiene que dejar de ver y vicerversa
+        if (liAuthors[2].classList.contains("non-display")) {//Hay que desplegarlos
+            liAuthors.forEach(elm => {
+                if (elm.classList.contains("non-display")) {
+                    elm.classList.remove("non-display");
+                    elm.classList.add("yes-display");
+                }
+            });
+        } else {//hay que encogerlos
+            liAuthors.forEach((elm, index) => {
+                if (index > 1) {
+                    if (elm.classList.contains("yes-display")) {
+                        elm.classList.remove("yes-display");
+                        elm.classList.add("non-display");
+                    }
+                }
+            });
+        }
+    }
+}
 //Esta funcion se encarga de escribir el json en las tablas
 export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
 
@@ -123,64 +150,65 @@ export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
     //borramos la tabla para poder mostrar las cosas sin que se solapen
     clearElement(dataTableElements);
     var inicio = (paginaActual - 1) * articulosPorPagina;
+    var elm = json.publications[0];
 
-    for (let index = inicio; index < n; index++) {
+    for (let index = inicio; index < n && elm !== undefined; ++index) {
         let tableHead = document.createElement("tr");
-        const elm = json.publications[index];
+        elm = json.publications[index]; 
         //--- type ---
         addToTable(elm.type, tableHead);
-
+        
         //--- autores ---
         //Creamos las filas de las tablas y en la de autores creamos una lista
         let tdAuthors = document.createElement("td");
         let ulAuthors = document.createElement("ul");
-        elm.authors.forEach((author,index) => {
+        elm.authors.forEach((author, index) => {
             //Para una funcionalidad de js solo debo mostrar 2 autores y con el click mostrar todos
             let li = document.createElement("li");
             li.innerText = "■ " + author;
             //cuando haya mas de dos les añadimos una clase non-display que no dejara que se vea
-            if(index > 1)
-                li.classList.add("non-display");
-
+            if (index > 1)
+            li.classList.add("non-display");
+            
             ulAuthors.appendChild(li);
         });
         tdAuthors.classList.add("authors_");
         tdAuthors.setAttribute("list", "true");
         tdAuthors.appendChild(ulAuthors);
         tableHead.appendChild(tdAuthors);
-
+        
         //--- title ---
         let td = document.createElement("td");
         td.innerText = exist(elm.title);
         td.classList.add("title_");
         td.setAttribute("list", "false");
         tableHead.appendChild(td);
-
+        
         //--- pages ---
         addToTable(elm.pages, tableHead);
-
+        
         //--- year ---
         addToTable(elm.year, tableHead);
-
+        
         //--- Volume ---
         addToTable(elm.volume, tableHead);
-
+        
         //--- Issue ---
         addToTable(elm.issue, tableHead);
-
+        
         //--- book title ---
         addToTable(elm.book_title, tableHead);
-
+        
         //--- quotes ---
         let tdQuotes = document.createElement("td");
         tdQuotes.innerText = "Siguiente Spring";
         tableHead.appendChild(tdQuotes);
-
+        
         //--- core ---
         let tdCore = document.createElement("td");
         tdCore.innerText = "Siguiente Spring";
         tableHead.appendChild(tdCore);
-
+        
         //--- ggs ---
         let tdggs = document.createElement("td");
         let ulggs = document.createElement("ul");
@@ -196,84 +224,107 @@ export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
         tdggs.appendChild(ulggs);
         tableHead.appendChild(tdggs);*/
         
-
+        
         //se le agrega la funcionalidad de desplegado a cada fila
-        tableHead.onclick= ()=>{
-            //cogemos los autores de la fila
-            let liAuthors = tableHead.querySelectorAll(".authors_ ul > li");
-            //Por defecto dejamos que se muestren 2 autores
-            if(liAuthors.length > 2){
-                //cogemos el 3 autor y comprobamos si se esta mostrando, si se esta mostrando cuando le demos click se tiene que dejar de ver y vicerversa
-                if(liAuthors[2].classList.contains("non-display")){//Hay que desplegarlos
-                    liAuthors.forEach(elm=>{
-                        if(elm.classList.contains("non-display")){
-                            elm.classList.remove("non-display");
-                            elm.classList.add("yes-display");
-                        }
-                    });
-                }else{//hay que encogerlos
-                    liAuthors.forEach((elm,index)=>{
-                        if(index > 1){
-                            if(elm.classList.contains("yes-display")){
-                                elm.classList.remove("yes-display");
-                                elm.classList.add("non-display");
-                            }
-                        }
-                    });
-                }
-            }
-        };
+        tableHead.onclick = () => expand();
         //Se agrega toda la fila a la tabla
         dataTableElements.appendChild(tableHead);
+        
     }
 }
 
 
 //funcion que se encarga de hacer la busqueda por autor y titulo
-export const searchOnTable = () => {
-    var input, filter, table, tr, tds, i, txtValue;
+export const searchOnTable = (json) => {
+    var input, filter;
     //cogemos lo que escribe el usuario
     input = document.getElementById("myInputPublications");
     //lo pasamos a mayusuculas
     filter = input.value.toUpperCase();
-    //cogemos las filas de la tabla
-    table = document.getElementById("tablePublications");
-    tr = table.getElementsByTagName("tr");
-    // recorres las filas y columnas que contengan las clases que queremos
-    //empieza en 1 por que tb coge los titulos de las tablas 
-    for (i = 1; i < tr.length; i++) {
-        tds = tr[i].querySelectorAll(".title_,.authors_");
-        console.log(filter);
-        //buscamos en cada una de las columnas de la fila en cuestion
-        for (let j = 0; j < tds.length; j++) {
-            if (tds[j]) {
-                //ahora miramos si nos encontramos en los autores o en el titulo gracias al atributo list
-                let listOrNot = tds[j].getAttribute("list");
-                if (listOrNot === "true"){
-                    let liAuthors = tds[j].getElementsByTagName("li");
-                    for (let index = 0; index < liAuthors.length; index++) {
-                        txtValue = liAuthors[index].textContent || liAuthors[index].innerText;
-                        console.log("En autores: " + txtValue + " tamaño array autores: " + liAuthors.length);
-                        if (txtValue.toUpperCase().includes(filter)) {
-                            tr[i].style.display = "";
-                        }else{
-                            tr[i].style.display = "none";
-                        }
-                    }
-                } else { //estamos en los autores por tanto hay que recorrerlos y en cuanto encontremos una que coincide mostramos la fila
-                    txtValue = tds[j].textContent || tds[j].innerText;
-                    console.log("En titulo: " + txtValue);
-                    if (txtValue.toUpperCase().includes(filter)) {
-                        tr[i].style.display = "";
-                        console.log("coincide en titulo");
-                    } else {
-                        tr[i].style.display = "none";   
-                        console.log("no coincide en titulo");                     
-                    }
-                }
+    var dataTableElements = document.querySelector("#dataTablePublications");
+    //borramos la tabla para poder mostrar las cosas sin que se solapen
+    clearElement(dataTableElements);
+
+    json.publications.forEach(elm => {
+        //hacemos la busqueda por titulo y pintamos
+        if (elm.title.toUpperCase().includes(filter)){
+            var tableHead = document.createElement("tr");
+            //--- type ---
+            addToTable(elm.type, tableHead);
+
+            //--- autores ---
+            //Creamos las filas de las tablas y en la de autores creamos una lista
+            let tdAuthors = document.createElement("td");
+            let ulAuthors = document.createElement("ul");
+            elm.authors.forEach((author, index) => {
+                //Para una funcionalidad de js solo debo mostrar 2 autores y con el click mostrar todos
+                let li = document.createElement("li");
+                li.innerText = "■ " + author;
+                //cuando haya mas de dos les añadimos una clase non-display que no dejara que se vea
+                if (index > 1)
+                    li.classList.add("non-display");
+
+                ulAuthors.appendChild(li);
+            });
+            tdAuthors.classList.add("authors_");
+            tdAuthors.setAttribute("list", "true");
+            tdAuthors.appendChild(ulAuthors);
+            tableHead.appendChild(tdAuthors);
+
+            //--- title ---
+            let td = document.createElement("td");
+            td.innerText = exist(elm.title);
+            td.classList.add("title_");
+            td.setAttribute("list", "false");
+            tableHead.appendChild(td);
+
+            //--- pages ---
+            addToTable(elm.pages, tableHead);
+
+            //--- year ---
+            addToTable(elm.year, tableHead);
+
+            //--- Volume ---
+            addToTable(elm.volume, tableHead);
+
+            //--- Issue ---
+            addToTable(elm.issue, tableHead);
+
+            //--- book title ---
+            addToTable(elm.book_title, tableHead);
+
+            //--- quotes ---
+            let tdQuotes = document.createElement("td");
+            tdQuotes.innerText = "Siguiente Spring";
+            tableHead.appendChild(tdQuotes);
+
+            //--- core ---
+            let tdCore = document.createElement("td");
+            tdCore.innerText = "Siguiente Spring";
+            tableHead.appendChild(tdCore);
+
+            //--- ggs ---
+            let tdggs = document.createElement("td");
+            let ulggs = document.createElement("ul");
+            /*if(elm.gss){
+                elm.gss.forEach(element => {
+                    let li = document.createElement("li");
+                    li.innerText = "■ " + element;
+                    ulggs.appendChild(li);
+                });
+            }else{
+                ulggs.innerText="-";    
             }
+            tdggs.appendChild(ulggs);
+            tableHead.appendChild(tdggs);*/
+
+
+            //se le agrega la funcionalidad de desplegado a cada fila
+            tableHead.onclick = () => expand();
+            dataTableElements.appendChild(tableHead);
         }
-    }
+    })
+
 }
 
 //funcion que se usa en las pestañas
