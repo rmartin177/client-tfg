@@ -4,11 +4,13 @@ import { deleteAuthor, addAuthor } from '../../js/utils'
 import axios from "../../config/axios"
 import M from "materialize-css"
 import Spinner from '../Spinner/Spinner'
+import ErrorPeticion from '../Error/ErrorPeticion'
 
 const Formulario = (props) => {
 
     const { setShow, setresult } = props;
     const [showSpinner, setSpinner] = useState(false);
+    const [error, seterror] = useState(false);
     //Array con los nombre de los autores
     const autores = [];
 
@@ -45,7 +47,7 @@ const Formulario = (props) => {
             return true;
 
         } catch (error) {
-            console.log(error);
+            seterror(true);
             return false;
         }
 
@@ -59,12 +61,18 @@ const Formulario = (props) => {
             {
                 showSpinner
                     ?
-                    <div className="contenedor-principal">
-                        <div className="white-text">
-                            We are working on it, please wait...
-                        </div>
-                        <Spinner />
-                    </div>
+                   /* {
+                        error ?
+                        
+                            <h1> Error </h1>
+                        :*/
+                            <div className="contenedor-principal">
+                                <div className="white-text">
+                                    We are working on it, please wait...
+                                </div>
+                                <Spinner />
+                            </div>
+                    //}
 
                     :
                     <div className="contenedor-principal">

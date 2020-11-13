@@ -115,9 +115,8 @@ function clearElement(elm) {
 }
 
 //funcion que se encarga de que se expanda la fila
-function expand() {
-    //cogemos los autores de la fila
-    let liAuthors = document.querySelectorAll(".authors_ ul > li");
+function expand(liAuthors) {
+
     //Por defecto dejamos que se muestren 2 autores
     if (liAuthors.length > 2) {
         //cogemos el 3 autor y comprobamos si se esta mostrando, si se esta mostrando cuando le demos click se tiene que dejar de ver y vicerversa
@@ -126,6 +125,10 @@ function expand() {
                 if (elm.classList.contains("non-display")) {
                     elm.classList.remove("non-display");
                     elm.classList.add("yes-display");
+                }
+                //cambia el texto del show more por show less
+                if (elm.classList.contains("show")) {
+                    elm.innerText = "Show less...";
                 }
             });
         } else {//hay que encogerlos
@@ -136,196 +139,239 @@ function expand() {
                         elm.classList.add("non-display");
                     }
                 }
+                //cambia el texto del show more por show less
+                if (elm.classList.contains("show")) {
+                    elm.innerText = "Show more...";
+                }
             });
         }
     }
 }
-//Esta funcion se encarga de escribir el json en las tablas
-export const writeAuthorOnTable = (json, paginaActual, articulosPorPagina) => {
 
-    var n = paginaActual * articulosPorPagina;
+//funcion que inserta en la tabla un listado de elementos sobre todo util para los autores
+function addArrtoTable(type, table) {
+    var td = document.createElement("td");
+    var ul = document.createElement("ul");
 
+    Object.entries(type).forEach(([key, value]) => {
+        let li = document.createElement("li");
+        li.innerText = "■ " + key + ": " + value;
+        ul.appendChild(li);
+    });
+    td.appendChild(ul);
+    table.appendChild(td);
+}
+
+//funcion que se encarga de escribir los autores en la tabla
+function writeAuthorsOnTable(json, paginaActualAutores, articulosPorPaginaAutores) {
+    //--- pestaña autores ---
+    var nAutores = paginaActualAutores * articulosPorPaginaAutores;
     //cogemos todas las filas de la tabla , nos ponemos en la ultima y vamos añadiendo segun leemos el json
-    var dataTableElements = document.querySelector("#dataTablePublications");
+    var dataTableAuthors = document.querySelector("#dataTableAuthors");
     //borramos la tabla para poder mostrar las cosas sin que se solapen
-    clearElement(dataTableElements);
-    var inicio = (paginaActual - 1) * articulosPorPagina;
-    var elm = json.publications[0];
+    clearElement(dataTableAuthors);
+    var inicio = (paginaActualAutores - 1) * articulosPorPaginaAutores;
+    
+    for (let index = inicio; index < nAutores ; ++index) {
+        auxAuthorsWrite(json,index,dataTableAuthors);
+    }
 
-    for (let index = inicio; index < n && elm !== undefined; ++index) {
+}
+
+//funcion auxiliar que se usa para escribir los autores en la tabla
+function auxAuthorsWrite(json,index,dataTableAuthors){
+    var elm = json.authors[index];
+    if(elm !== undefined){
+        var tableHeadAuthors = document.createElement("tr");
+        //--- Name ---
+        addToTable(elm.name, tableHeadAuthors);
+        //--- Indices ---
+        addArrtoTable(elm.indices, tableHeadAuthors);
+        //--- Citas ---
+        addArrtoTable(elm.citas, tableHeadAuthors);
+        //--- Jcr ---
+        addArrtoTable(elm.jcr, tableHeadAuthors);
+        //--- Ggs ---
+        addArrtoTable(elm.ggs, tableHeadAuthors);
+        //--- Core ---
+        addArrtoTable(elm.core, tableHeadAuthors);
+    
+        dataTableAuthors.appendChild(tableHeadAuthors);
+    }
+}
+//funcion auxiliar que se usa para escribir publicaciones en la tabla publications
+function auxPublicationsWrite(json, index, dataTableElements) {
+    var elm = json.publications[index];
+    if (elm !== undefined) {
+
         let tableHead = document.createElement("tr");
-        elm = json.publications[index]; 
         //--- type ---
         addToTable(elm.type, tableHead);
-        
+
         //--- autores ---
         //Creamos las filas de las tablas y en la de autores creamos una lista
         let tdAuthors = document.createElement("td");
         let ulAuthors = document.createElement("ul");
-        elm.authors.forEach((author, index) => {
+        elm.authors.forEach((author, i) => {
             //Para una funcionalidad de js solo debo mostrar 2 autores y con el click mostrar todos
             let li = document.createElement("li");
             li.innerText = "■ " + author;
             //cuando haya mas de dos les añadimos una clase non-display que no dejara que se vea
-            if (index > 1)
-            li.classList.add("non-display");
-            
+            if (i > 1)
+                li.classList.add("non-display");
+
             ulAuthors.appendChild(li);
+
+            if (i == elm.authors.length - 1) {
+                let showMore = document.createElement("li");
+                showMore.innerText = "Show more...";
+                showMore.classList.add("show");
+                showMore.classList.add("blue-text");
+                ulAuthors.appendChild(showMore);
+            }
         });
         tdAuthors.classList.add("authors_");
         tdAuthors.setAttribute("list", "true");
         tdAuthors.appendChild(ulAuthors);
         tableHead.appendChild(tdAuthors);
-        
+
         //--- title ---
         let td = document.createElement("td");
         td.innerText = exist(elm.title);
         td.classList.add("title_");
         td.setAttribute("list", "false");
         tableHead.appendChild(td);
-        
+
         //--- pages ---
         addToTable(elm.pages, tableHead);
-        
+
         //--- year ---
         addToTable(elm.year, tableHead);
-        
+
         //--- Volume ---
         addToTable(elm.volume, tableHead);
-        
+
         //--- Issue ---
         addToTable(elm.issue, tableHead);
-        
-        //--- book title ---
-        addToTable(elm.book_title, tableHead);
-        
-        //--- quotes ---
-        let tdQuotes = document.createElement("td");
-        tdQuotes.innerText = "Siguiente Spring";
-        tableHead.appendChild(tdQuotes);
-        
+
+        //--- (A)Journal/(I)Book_title ---
+        if (elm.type === "Articles") {
+            addToTable(elm.journal, tableHead);
+        } else {
+            //--- book title ---
+            addToTable(elm.book_title, tableHead);
+        }
+
+        //--- acronym ---
+        addToTable(elm.acronym, tableHead);
+
         //--- core ---
         let tdCore = document.createElement("td");
-        tdCore.innerText = "Siguiente Spring";
+        let ulCore = document.createElement("ul");
+        let liYearCore = document.createElement("li");
+        liYearCore.innerText = elm.core ? elm.core.core_year : "-";
+        let liCategoryCore = document.createElement("li");
+        liCategoryCore.innerText = elm.core ? elm.core.core_category : "-";
+        ulCore.appendChild(liYearCore);
+        ulCore.appendChild(liCategoryCore);
+        tdCore.appendChild(ulCore);
         tableHead.appendChild(tdCore);
-        
+
         //--- ggs ---
         let tdggs = document.createElement("td");
         let ulggs = document.createElement("ul");
-        /*if(elm.gss){
-            elm.gss.forEach(element => {
-                let li = document.createElement("li");
-                li.innerText = "■ " + element;
-                ulggs.appendChild(li);
-            });
-        }else{
-            ulggs.innerText="-";    
-        }
+        let liYearGgs = document.createElement("li");
+        liYearGgs.innerText = elm.ggs ? elm.ggs.year : "-";
+        let liClassGgs = document.createElement("li");
+        liClassGgs.innerText = elm.gss ? elm.ggs.class : "-";
+        ulggs.appendChild(liYearGgs);
+        ulggs.appendChild(liClassGgs);
         tdggs.appendChild(ulggs);
-        tableHead.appendChild(tdggs);*/
-        
-        
+        tableHead.appendChild(tdggs);
+
+
         //se le agrega la funcionalidad de desplegado a cada fila
-        tableHead.onclick = () => expand();
+        let liAuthors = tableHead.querySelectorAll(".authors_ ul > li");
+        tableHead.onclick = () => expand(liAuthors);
         //Se agrega toda la fila a la tabla
         dataTableElements.appendChild(tableHead);
-        
     }
+}
+//funcion que se encarga de escribir las publicaciones en la tabla
+function writePublicationOnTable(json, paginaActualPublicaciones, articulosPorPaginaPublicaciones) {
+    var nPublicaciones = paginaActualPublicaciones * articulosPorPaginaPublicaciones;
+    //cogemos todas las filas de la tabla , nos ponemos en la ultima y vamos añadiendo segun leemos el json
+    var dataTableElements = document.querySelector("#dataTablePublications");
+    //borramos la tabla para poder mostrar las cosas sin que se solapen
+    clearElement(dataTableElements);
+
+    var inicio = (paginaActualPublicaciones - 1) * articulosPorPaginaPublicaciones;
+    var elm = json.publications[0];
+
+    for (let index = inicio; index < nPublicaciones && elm !== undefined; ++index) {
+        auxPublicationsWrite(json, index, dataTableElements);
+    }
+}
+//Esta funcion se encarga de escribir el json en las tablas
+export const writeOnTable = (json, paginaActualAutores, articulosPorPaginaAutores, paginaActualPublicaciones, articulosPorPaginaPublicaciones) => {
+
+    //--- Authors ---
+    writeAuthorsOnTable(json, paginaActualAutores, articulosPorPaginaAutores);
+
+    //--- pestaña publications ---
+    writePublicationOnTable(json, paginaActualPublicaciones, articulosPorPaginaPublicaciones);
+
 }
 
 
-//funcion que se encarga de hacer la busqueda por autor y titulo
-export const searchOnTable = (json) => {
+//funcion que se encarga de hacer la busqueda por titulo
+export const searchOnTablePublications = (json) => {
     var input, filter;
     //cogemos lo que escribe el usuario
     input = document.getElementById("myInputPublications");
     //lo pasamos a mayusuculas
     filter = input.value.toUpperCase();
+
+    //desactivo paginacion
+
+    /* if(input === "")
+         document.getElementsByClassName("pages").classList.remove("non-display");*/
+
     var dataTableElements = document.querySelector("#dataTablePublications");
     //borramos la tabla para poder mostrar las cosas sin que se solapen
     clearElement(dataTableElements);
 
-    json.publications.forEach(elm => {
-        //hacemos la busqueda por titulo y pintamos
-        if (elm.title.toUpperCase().includes(filter)){
-            var tableHead = document.createElement("tr");
-            //--- type ---
-            addToTable(elm.type, tableHead);
-
-            //--- autores ---
-            //Creamos las filas de las tablas y en la de autores creamos una lista
-            let tdAuthors = document.createElement("td");
-            let ulAuthors = document.createElement("ul");
-            elm.authors.forEach((author, index) => {
-                //Para una funcionalidad de js solo debo mostrar 2 autores y con el click mostrar todos
-                let li = document.createElement("li");
-                li.innerText = "■ " + author;
-                //cuando haya mas de dos les añadimos una clase non-display que no dejara que se vea
-                if (index > 1)
-                    li.classList.add("non-display");
-
-                ulAuthors.appendChild(li);
-            });
-            tdAuthors.classList.add("authors_");
-            tdAuthors.setAttribute("list", "true");
-            tdAuthors.appendChild(ulAuthors);
-            tableHead.appendChild(tdAuthors);
-
-            //--- title ---
-            let td = document.createElement("td");
-            td.innerText = exist(elm.title);
-            td.classList.add("title_");
-            td.setAttribute("list", "false");
-            tableHead.appendChild(td);
-
-            //--- pages ---
-            addToTable(elm.pages, tableHead);
-
-            //--- year ---
-            addToTable(elm.year, tableHead);
-
-            //--- Volume ---
-            addToTable(elm.volume, tableHead);
-
-            //--- Issue ---
-            addToTable(elm.issue, tableHead);
-
-            //--- book title ---
-            addToTable(elm.book_title, tableHead);
-
-            //--- quotes ---
-            let tdQuotes = document.createElement("td");
-            tdQuotes.innerText = "Siguiente Spring";
-            tableHead.appendChild(tdQuotes);
-
-            //--- core ---
-            let tdCore = document.createElement("td");
-            tdCore.innerText = "Siguiente Spring";
-            tableHead.appendChild(tdCore);
-
-            //--- ggs ---
-            let tdggs = document.createElement("td");
-            let ulggs = document.createElement("ul");
-            /*if(elm.gss){
-                elm.gss.forEach(element => {
-                    let li = document.createElement("li");
-                    li.innerText = "■ " + element;
-                    ulggs.appendChild(li);
-                });
-            }else{
-                ulggs.innerText="-";    
-            }
-            tdggs.appendChild(ulggs);
-            tableHead.appendChild(tdggs);*/
-
-
-            //se le agrega la funcionalidad de desplegado a cada fila
-            tableHead.onclick = () => expand();
-            dataTableElements.appendChild(tableHead);
-        }
-    })
-
+    for (let index = 0; index < json.publications.length; ++index) {
+        if (json.publications[index].title.toUpperCase().includes(filter))
+            auxPublicationsWrite(json, index, dataTableElements);
+    }
 }
+
+//funcion que se encarga de hacer la busqueda por nombre
+export const searchOnTableAuthors = (json) => {
+    var input, filter;
+    //cogemos lo que escribe el usuario
+    input = document.getElementById("myInputAuthors");
+    //lo pasamos a mayusuculas
+    filter = input.value.toUpperCase();
+
+    //desactivo paginacion
+
+    /* if(input === "")
+         document.getElementsByClassName("pages").classList.remove("non-display");*/
+
+    var dataTableElements = document.querySelector("#dataTableAuthors");
+    //borramos la tabla para poder mostrar las cosas sin que se solapen
+    clearElement(dataTableElements);
+    var elm = json.authors[0];
+    for (let index = 0; index < json.authors.length && elm !== undefined; ++index) {
+        if (json.authors[index].name.toUpperCase().includes(filter))
+            auxAuthorsWrite(json, index, dataTableElements);
+        elm = json.authors[index];
+    }
+}
+
+
 
 //funcion que se usa en las pestañas
 export const tabsFunction = (id) => {

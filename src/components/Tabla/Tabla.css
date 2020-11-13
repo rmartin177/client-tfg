@@ -249,7 +249,7 @@
     margin-left: 0.5rem;
   }
 
-  #entries{
+  #entriesPublications,#entriesAuthors{
     width: 2.5rem;
     margin-left: 0.6rem;
     color: white;
@@ -278,4 +278,8 @@
 
  #downloadJson:hover{
     background-color: #607d8b !important;
+ }
+
+ .show{
+   cursor: pointer;
  }
