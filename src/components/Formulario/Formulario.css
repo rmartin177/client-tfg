@@ -2,7 +2,9 @@
     margin:0;
     /* border: 1px solid lime; */
 } 
-
+h1{
+    color: white;
+}
 body{
     height: 100vh;
     background: #bdc3c7;
@@ -46,6 +48,18 @@ body{
     margin-top: 1rem;
     background-color: #8d8d8d;
     color: black;
+}
+
+#send:hover {
+    background-color: rgb(48, 46, 46);
+}
+
+#addAuthor:hover {
+    background-color: rgb(75, 75, 75) !important;
+}
+
+#title{
+    margin-top: 0 !important;
 }
 @media only screen and (max-width: 633px) {
     .writeAuthor{
