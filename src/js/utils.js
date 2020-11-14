@@ -222,7 +222,7 @@ function auxPublicationsWrite(json, index, dataTableElements) {
 
             ulAuthors.appendChild(li);
 
-            if (i == elm.authors.length - 1) {
+            if (i == elm.authors.length - 1 && elm.authors.length > 2) {
                 let showMore = document.createElement("li");
                 showMore.innerText = "Show more...";
                 showMore.classList.add("show");
@@ -269,7 +269,7 @@ function auxPublicationsWrite(json, index, dataTableElements) {
         let tdCore = document.createElement("td");
         let ulCore = document.createElement("ul");
         let liYearCore = document.createElement("li");
-        liYearCore.innerText = elm.core ? elm.core.core_year : "-";
+        liYearCore.innerText = elm.core ? elm.core.core_year : "";
         let liCategoryCore = document.createElement("li");
         liCategoryCore.innerText = elm.core ? elm.core.core_category : "-";
         ulCore.appendChild(liYearCore);
@@ -281,7 +281,7 @@ function auxPublicationsWrite(json, index, dataTableElements) {
         let tdggs = document.createElement("td");
         let ulggs = document.createElement("ul");
         let liYearGgs = document.createElement("li");
-        liYearGgs.innerText = elm.ggs ? elm.ggs.year : "-";
+        liYearGgs.innerText = elm.ggs ? elm.ggs.year : "";
         let liClassGgs = document.createElement("li");
         liClassGgs.innerText = elm.gss ? elm.ggs.class : "-";
         ulggs.appendChild(liYearGgs);
