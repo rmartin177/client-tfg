@@ -177,7 +177,7 @@ const Tabla = (props) => {
                                     <th>Year</th>
                                     <th>Volumen</th>
                                     <th>Issue</th>
-                                    <th id="j_b">Book_tittle / Journal</th>
+                                    <th id="j_b">Book_tittle for inprocedings / Journal for articles </th>
                                     <th>acronym</th>
                                     <th>Core</th>
                                     <th>Ggs</th>
