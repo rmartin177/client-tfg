@@ -174,7 +174,8 @@
   }
   
   .datatable-container .datatable tbody tr:hover {
-    background-color: var(--dt-hover-cell-color);
+    /* este es que da color al hover de la tabla */
+    background-color: #757575   ;
   }
   
   .datatable-container .datatable tbody tr .available::after,
@@ -248,8 +249,8 @@
     margin-left: 0.5rem;
   }
 
-  #entries{
-    width: 2rem;
+  #entriesPublications,#entriesAuthors{
+    width: 2.5rem;
     margin-left: 0.6rem;
     color: white;
     font-size: 1rem;
@@ -258,3 +259,27 @@
   .non-display{
     display: none;
   }
+
+  .yes-display{
+    display: block;
+  }
+
+  .non-padding{
+    padding: 0 !important;
+  }
+  
+ #downloadJson{
+   margin-right: 1rem;
+ }
+
+ #back:hover{
+   background-color: #607d8b !important;
+ }
+
+ #downloadJson:hover{
+    background-color: #607d8b !important;
+ }
+
+ .show{
+   cursor: pointer;
+ }
