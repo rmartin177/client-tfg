@@ -271,7 +271,8 @@ function auxPublicationsWrite(json, index, dataTableElements) {
         let liYearCore = document.createElement("li");
         liYearCore.innerText = elm.core ? elm.core.core_year : "";
         let liCategoryCore = document.createElement("li");
-        liCategoryCore.innerText = elm.core ? elm.core.core_category : "-";
+        if(liYearCore.innerText === "") liCategoryCore.innerText = "-";
+        else liCategoryCore.innerText = elm.core.core_category;
         ulCore.appendChild(liYearCore);
         ulCore.appendChild(liCategoryCore);
         tdCore.appendChild(ulCore);
@@ -283,7 +284,8 @@ function auxPublicationsWrite(json, index, dataTableElements) {
         let liYearGgs = document.createElement("li");
         liYearGgs.innerText = elm.ggs ? elm.ggs.year : "";
         let liClassGgs = document.createElement("li");
-        liClassGgs.innerText = elm.gss ? elm.ggs.class : "-";
+        if(liYearGgs.innerText === "") liClassGgs.innerText = "-";
+        else  liClassGgs.innerText = elm.ggs.class;
         ulggs.appendChild(liYearGgs);
         ulggs.appendChild(liClassGgs);
         tdggs.appendChild(ulggs);
