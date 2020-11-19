@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import './Tabla.css'
-import { downloadObjectAsJson, writeOnTable, searchOnTableAuthors,searchOnTablePublications, tabsFunction } from '../../js/utils'
+import { writeOnTable,downloadObjectAsJson, tabsFunction } from '../../js/Table/index'
+import { searchOnTableAuthors} from '../../js/Table/author'
+import { searchOnTablePublications } from '../../js/Table/publications'
 
 const Tabla = (props) => {
     //props
@@ -113,7 +115,7 @@ const Tabla = (props) => {
                         <table className="datatable responsive-table" id="tableAuthors" >
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Name <i class="material-icons">import_export </i></th>
                                     <th>Indices</th>
                                     <th>Citas</th>
                                     <th>Jcr</th>
@@ -126,23 +128,11 @@ const Tabla = (props) => {
                         </table>
 
                         <div class="footer-tools">
-                            <div className="list-items">
-                                <select name="n-entries" id="n-entries" class="n-entries">
-                                    <option value="5">5</option>
-                                    <option value="10" selected>10</option>
-                                    <option value="15">15</option>
-                                </select>
-                            </div>
-
                             <div className="pages">
-                                <ul>
-                                    <li><span className="active">1</span></li>
-                                    <li><button>2</button></li>
-                                    <li><button>3</button></li>
-                                    <li><button>4</button></li>
-                                    <li><span>...</span></li>
-                                    <li><button>9</button></li>
-                                    <li><button>10</button></li>
+                            <ul>
+                                    <span>page {paginaActualAutores} of {totalPaginasAuthors}</span>
+                                    <li><button onClick={() => previousPage("authors")}>previous</button></li>
+                                    <li><button onClick={() => nextPage("authors")}>next</button></li>
                                 </ul>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import "./Formulario.css"
-import { deleteAuthor, addAuthor } from '../../js/utils'
+import { deleteAuthor, addAuthor } from '../../js/Table/author'
 import axios from "../../config/axios"
 import M from "materialize-css"
 import Spinner from '../Spinner/Spinner'
