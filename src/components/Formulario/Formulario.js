@@ -2,18 +2,18 @@ import React, { Fragment, useState } from 'react'
 import "./Formulario.css"
 import { deleteAuthor, addAuthor } from '../../js/Table/author'
 import axios from "../../config/axios"
+import Modal from '../Modal/Modal'
 import M from "materialize-css"
 import Spinner from '../Spinner/Spinner'
-import ErrorPeticion from '../Error/ErrorPeticion'
 
 const Formulario = (props) => {
 
-    const { setShow, setresult } = props;
+    const { setShow, setresult,result } = props;
     const [showSpinner, setSpinner] = useState(false);
-    const [error, seterror] = useState(false);
+
     //Array con los nombre de los autores
     const autores = [];
-
+    const nAuthors = {};
     //Funcion que se ejecuta cuando se pulsa el submit
     const saveAuthors = async (e) => {
         e.preventDefault();
@@ -29,9 +29,21 @@ const Formulario = (props) => {
             var toastHTML = '<span class="errorEmpty">El campo autor está vacio.</span>';
             M.toast({ html: toastHTML, classes: 'rounded' });
         } else {
+            //hacemos la llamada para ver si ningún autor tiene un homonimo
             //Activamos el spinner mientras carga la petición
             setSpinner(true);
             if (await getJson(autores)) {
+                //quitamos el spinner
+                setSpinner(false);
+                
+                Object.entries(nAuthors).forEach(([key, value],index,array) => {
+                    if(array.length > 1){
+                        return (<Modal 
+                                listOfAuthors={value}
+                                showModal={true}
+                        />);
+                    }
+                });
                 //cuando este todo ok damos paso a la siguiente panatalla y quitamos el spinner
                 setSpinner(false);
                 setShow(false);
@@ -44,14 +56,15 @@ const Formulario = (props) => {
             //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
             //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
             setresult((await axios.post("/api/getjson", authors)).data);
+            nAuthors = 
             return true;
 
         } catch (error) {
-            seterror(true);
             return false;
         }
 
     }
+
 
     return (
         <Fragment>
@@ -61,18 +74,13 @@ const Formulario = (props) => {
             {
                 showSpinner
                     ?
-                   /* {
-                        error ?
-                        
-                            <h1> Error </h1>
-                        :*/
                             <div className="contenedor-principal">
                                 <div className="white-text">
                                     We are working on it, please wait...
                                 </div>
                                 <Spinner />
                             </div>
-                    //}
+                    
 
                     :
                     <div className="contenedor-principal">
@@ -100,6 +108,8 @@ const Formulario = (props) => {
                                 </button>
                             </div>
                         </form>
+
+                        
                     </div>
             }
         </Fragment>

@@ -15,7 +15,7 @@ function App() {
         {/* <Tabla setShow={setShow} />   */}
         {show
         ?
-        <Formulario setShow={setShow} setresult={setresult} />
+        <Formulario setShow={setShow} setresult={setresult} result={result} />
         :
         <Tabla setShow={setShow} result={result}/>
       }   
