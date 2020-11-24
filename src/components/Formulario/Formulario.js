@@ -1,19 +1,31 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import "./Formulario.css"
 import { deleteAuthor, addAuthor } from '../../js/Table/author'
 import axios from "../../config/axios"
-import Modal from '../Modal/Modal'
 import M from "materialize-css"
 import Spinner from '../Spinner/Spinner'
 
 const Formulario = (props) => {
-
-    const { setShow, setresult,result } = props;
+    const { setShow, setresult, setShowModal, setauthorsModal, authorsChoosen } = props;
     const [showSpinner, setSpinner] = useState(false);
 
-    //Array con los nombre de los autores
+    useEffect(() => {
+        if (authorsChoosen.length !== 0) {
+            console.log(authorsChoosen);
+            const sanitize = async () => {
+                if (await getJsonSanitize(authorsChoosen)) {
+                    //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
+                    setSpinner(false);
+                    setShow(false);
+                }
+            }
+            sanitize();
+        }
+    }, [authorsChoosen])
+    //objeto para comprobar si los autores se tienen homonimo
+    var AuthorsApi;
+    //Array con los nombre de los autores del formulario
     const autores = [];
-    const nAuthors = {};
     //Funcion que se ejecuta cuando se pulsa el submit
     const saveAuthors = async (e) => {
         e.preventDefault();
@@ -33,33 +45,66 @@ const Formulario = (props) => {
             //Activamos el spinner mientras carga la petición
             setSpinner(true);
             if (await getJson(autores)) {
-                //quitamos el spinner
-                setSpinner(false);
-                
-                Object.entries(nAuthors).forEach(([key, value],index,array) => {
-                    if(array.length > 1){
-                        return (<Modal 
-                                listOfAuthors={value}
-                                showModal={true}
-                        />);
-                    }
-                });
-                //cuando este todo ok damos paso a la siguiente panatalla y quitamos el spinner
-                setSpinner(false);
-                setShow(false);
+                //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
+                let choose = false;
+                //Hay algun homonimo 
+                if (AuthorsApi.publications === undefined) {
+                    AuthorsApi.forEach((elm) => {
+                        if (elm.authors.length > 1) {
+                            let obj = {};
+                            for (let index = 0; index < elm.authors.length; index++) {
+                                obj[index] = elm.authors[index];
+                            }
+                            setauthorsModal(obj);
+                            choose = true;
+                        }
+                    });
+                }
+
+                //si existe algún homonimo llamamos al modal y este se encargara de mandarnos los autores elegidos para hacer la segunda peticion en el use Effect
+                if (choose)
+                    setShowModal(true);
+                else {
+                    //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
+                    setSpinner(false);
+                    setShow(false);
+                }
+
             }
         }
     };
+
+
 
     async function getJson(authors) {
         try {
             //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
             //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
-            setresult((await axios.post("/api/getjson", authors)).data);
-            nAuthors = 
+            AuthorsApi = (await axios.post("/api/getjson", authors)).data;
+            setresult(AuthorsApi);
             return true;
 
         } catch (error) {
+            return false;
+        }
+    }
+
+    async function getJsonSanitize(authors) {
+        console.log("Tratando de encontrar los autores,va bien...");
+        try {
+            //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
+            //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
+            AuthorsApi = (await axios.post("/api/getjsonsanitize", /*{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+                , */authors)).data;
+            setresult(AuthorsApi);
+            return true;
+
+        } catch (error) {
+            console.log(error);
             return false;
         }
 
@@ -74,16 +119,16 @@ const Formulario = (props) => {
             {
                 showSpinner
                     ?
-                            <div className="contenedor-principal">
-                                <div className="white-text">
-                                    We are working on it, please wait...
+                    <div className="contenedor-principal">
+                        <div className="white-text">
+                            We are working on it, please wait...
                                 </div>
-                                <Spinner />
-                            </div>
-                    
+                        <Spinner />
+                    </div>
+
 
                     :
-                    <div className="contenedor-principal">
+                    <div className="contenedor-principal" id="contenedorModal">
                         <form onSubmit={(e) => saveAuthors(e)}
                             className="col s12">
 
@@ -100,7 +145,7 @@ const Formulario = (props) => {
                                 <i className="material-icons left">add_circle_outline</i>
                                 Add author
                             </button>
-                            
+
                             <div>
                                 <button type="submit" id="send" className="btn waves-effect waves-light">
                                     <i className="material-icons right">send</i>
@@ -109,7 +154,6 @@ const Formulario = (props) => {
                             </div>
                         </form>
 
-                        
                     </div>
             }
         </Fragment>

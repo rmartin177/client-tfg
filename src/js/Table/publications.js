@@ -62,7 +62,7 @@ function auxPublicationsWrite(json, index, dataTableElements) {
 
             ulAuthors.appendChild(li);
 
-            if (i == elm.authors.length - 1 && elm.authors.length > 2) {
+            if (i === elm.authors.length - 1 && elm.authors.length > 2) {
                 let showMore = document.createElement("li");
                 showMore.innerText = "Show more...";
                 showMore.classList.add("show");

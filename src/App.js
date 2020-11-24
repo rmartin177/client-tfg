@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import './App.css';
 import Formulario from './components/Formulario/Formulario';
 import Tabla from './components/Tabla/Tabla';
+import Modal from './components/Modal/Modal'
 
 function App() {
   //state que mostrará o no el formulario
   const [show, setShow] = useState(true);
 
   //state que contiene el resultado de la peticion
-  const [result, setresult] = useState({});
+  const [result, setresult] = useState([]);
+  //state que mostrara o no el modal
+  const [showModal, setShowModal] = useState(false);
+  //state que muestra los autores en el modal
+  const [authorsModal, setauthorsModal] = useState([]);
+  //state para los autores elegidos dentro del modal
+  const [authorsChoosen, setauthorsChoosen] = useState([]);
 
   return (
     <div className="App">
-        {/* <Tabla setShow={setShow} />   */}
-        {show
+      {show
         ?
-        <Formulario setShow={setShow} setresult={setresult} result={result} />
+        <Fragment>
+          <Formulario 
+            setShow={setShow}
+            setresult={setresult} 
+            setShowModal={setShowModal} 
+            setauthorsModal={setauthorsModal} 
+            authorsChoosen={authorsChoosen} 
+          />
+          {showModal
+            ?
+            <Modal listOfAuthors={authorsModal} showModal={showModal} setauthorsChoosen={setauthorsChoosen} />
+            : null
+          }
+        </Fragment>
         :
-        <Tabla setShow={setShow} result={result}/>
-      }   
+        <Tabla setShow={setShow} result={result} />
+      }
     </div>
   );
 }

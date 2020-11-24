@@ -1,0 +1,16 @@
+#close{
+    background-color: red !important;
+    color: black;
+    font-weight: bolder;
+}
+
+#accept{
+    background-color: green !important;
+    color: black;
+    font-weight: bolder;
+    margin-right: 0.5rem;
+}
+
+.modal, .modal-content{
+    background-color: var(--dt-background-color-container);
+}

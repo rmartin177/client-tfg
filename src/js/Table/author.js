@@ -1,6 +1,5 @@
 import {clearElement,addArrtoTable,addToTable} from '../utils'
 import M from "materialize-css"
-import { title } from "process";
 
 //funcion que se encarga de añadir un nuevo input de autor
 export const addAuthor = (e) => {
