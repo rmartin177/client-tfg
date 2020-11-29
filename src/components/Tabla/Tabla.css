@@ -71,14 +71,14 @@
   }
   
   .datatable-container .header-tools .tools {
-    width: 70%;
+    width: 40%;
   }
   
   .datatable-container .header-tools .tools ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: baseline;
   }
   
@@ -282,4 +282,14 @@
 
  .show{
    cursor: pointer;
+ }
+ .dropdown-content{
+   min-width: 161px !important;
+ }
+ .utilities{
+   display: flex;
+   justify-content: space-between;
+ }
+ .filter{
+  margin-right: 29rem;
  }
