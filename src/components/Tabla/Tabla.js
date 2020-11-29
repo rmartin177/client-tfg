@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import './Tabla.css'
-import { downloadObjectAsJson, writeOnTable, searchOnTableAuthors,searchOnTablePublications, tabsFunction } from '../../js/utils'
+import M from 'materialize-css'
+import { writeOnTable, downloadObjectAsJson, tabsFunction } from '../../js/Table/index'
+import { searchOnTableAuthors } from '../../js/Table/author'
+import { searchOnTablePublications } from '../../js/Table/publications'
 
 const Tabla = (props) => {
     //props
@@ -19,58 +22,65 @@ const Tabla = (props) => {
     useEffect(() => {
         setTotalPaginasPublicaciones(Math.ceil(result.publications.length / entradasPorPaginaPublicaciones));
         setTotalPaginasAuthors(Math.ceil(result.authors.length / entradasPorPaginaAutores));
-        writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores,paginaActualPublicaciones,entradasPorPaginaPublicaciones);
-    }, [result])
+        writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores, paginaActualPublicaciones, entradasPorPaginaPublicaciones);
+        //inicializacion para los filtros
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(elems, { alignment: 'right', hover: true, coverTrigger: false });
+    }, [result,entradasPorPaginaAutores,entradasPorPaginaPublicaciones,paginaActualAutores,paginaActualPublicaciones]);
+
 
     const previousPage = (type) => {
-        if(type === "publications"){
-            var nuevaPaginaActual = paginaActualPublicaciones - 1;
+        let nuevaPaginaActual;
+        if (type === "publications") {
+            nuevaPaginaActual = paginaActualPublicaciones - 1;
             if (nuevaPaginaActual < 1)
                 return;
             else {
-                writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores,nuevaPaginaActual,entradasPorPaginaPublicaciones);
+                writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores, nuevaPaginaActual, entradasPorPaginaPublicaciones);
                 setpaginaActualPublicaciones(nuevaPaginaActual);
             }
-        }else{
-            var nuevaPaginaActual = paginaActualAutores - 1;
+        } else {
+            nuevaPaginaActual = paginaActualAutores - 1;
             if (nuevaPaginaActual < 1)
                 return;
             else {
-                writeOnTable(result, nuevaPaginaActual, entradasPorPaginaAutores,paginaActualPublicaciones,entradasPorPaginaPublicaciones);
-                setpaginaActualPublicaciones(nuevaPaginaActual);
+                writeOnTable(result, nuevaPaginaActual, entradasPorPaginaAutores, paginaActualPublicaciones, entradasPorPaginaPublicaciones);
+                setpaginaActualAutores(nuevaPaginaActual);
             }
         }
     }
 
     const nextPage = (type) => {
-        if(type === "publications"){
-            var nuevaPaginaActual = paginaActualPublicaciones + 1;
+        let nuevaPaginaActual;
+        if (type === "publications") {
+             nuevaPaginaActual = paginaActualPublicaciones + 1;
             if (nuevaPaginaActual > totalPaginasPublicaciones)
                 return;
             else {
-                writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores,nuevaPaginaActual,entradasPorPaginaPublicaciones);
+                writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores, nuevaPaginaActual, entradasPorPaginaPublicaciones);
                 setpaginaActualPublicaciones(nuevaPaginaActual);
             }
-        }else{
-            var nuevaPaginaActual = paginaActualAutores + 1;
+        } else {
+             nuevaPaginaActual = paginaActualAutores + 1;
             if (nuevaPaginaActual > totalPaginasAuthors)
                 return;
             else {
-                writeOnTable(result, nuevaPaginaActual, entradasPorPaginaAutores,paginaActualPublicaciones,entradasPorPaginaPublicaciones);
+                writeOnTable(result, nuevaPaginaActual, entradasPorPaginaAutores, paginaActualPublicaciones, entradasPorPaginaPublicaciones);
                 setpaginaActualPublicaciones(nuevaPaginaActual);
             }
         }
     }
 
     const entries = (type) => {
-        if(type === "Authors"){
-            var nEntries = parseInt(document.getElementById("entriesAuthors").value);
-            writeOnTable(result, paginaActualAutores, nEntries,paginaActualPublicaciones,entradasPorPaginaPublicaciones);
+        let nEntries;
+        if (type === "Authors") {
+            nEntries = parseInt(document.getElementById("entriesAuthors").value);
+            writeOnTable(result, paginaActualAutores, nEntries, paginaActualPublicaciones, entradasPorPaginaPublicaciones);
             setentradasPorPaginaAutores(nEntries);
             setTotalPaginasAuthors(Math.ceil(result.authors.length / nEntries));
-        }else{
-            var nEntries = parseInt(document.getElementById("entriesPublications").value);
-            writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores,paginaActualPublicaciones,nEntries);
+        } else {
+            nEntries = parseInt(document.getElementById("entriesPublications").value);
+            writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores, paginaActualPublicaciones, nEntries);
             setentradasPorPaginaPublicaciones(nEntries);
             setTotalPaginasPublicaciones(Math.ceil(result.publications.length / nEntries));
         }
@@ -82,11 +92,12 @@ const Tabla = (props) => {
 
     return (
         <Fragment>
+
             <div className="row">
                 <div className="col s12 non-padding">
                     <ul className="tabs">
-                        <li className="tab col s6" onClick={() => tabsFunction("tabAuthor")}><a className="tablinks">Authors</a></li>
-                        <li className="tab col s6" onClick={() => tabsFunction("tabPublications")}><a className="tablinks">Publications</a></li>
+                        <li className="tab col s6" onClick={() => tabsFunction("tabAuthor")}><a className="tablinks" href='#!'>Authors</a></li>
+                        <li className="tab col s6" onClick={() => tabsFunction("tabPublications")}><a className="tablinks" href='#!'>Publications</a></li>
                     </ul>
                 </div>
             </div>
@@ -106,19 +117,19 @@ const Tabla = (props) => {
                             </div>
 
                             <div className="search">
-                                <input type="search" id="myInputAuthors" class="search-input" placeholder="Search..." onKeyUp={() => searchOnTableAuthors(result)} />
+                                <input type="search" id="myInputAuthors" className="search-input" placeholder="Search..." onKeyUp={() => searchOnTableAuthors(result)} />
                             </div>
                         </div>
 
                         <table className="datatable responsive-table" id="tableAuthors" >
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Indices</th>
-                                    <th>Citas</th>
-                                    <th>Jcr</th>
-                                    <th>Ggs</th>
-                                    <th>Core</th>
+                                    <th> <i class="material-icons">import_export </i> Name</th>
+                                    <th> <i class="material-icons">import_export </i>Indices</th>
+                                    <th><i class="material-icons">import_export </i>Citas</th>
+                                    <th><i class="material-icons">import_export </i>Jcr</th>
+                                    <th><i class="material-icons">import_export </i>Ggs</th>
+                                    <th><i class="material-icons">import_export </i>Core</th>
                                 </tr>
                             </thead>
 
@@ -126,23 +137,11 @@ const Tabla = (props) => {
                         </table>
 
                         <div class="footer-tools">
-                            <div className="list-items">
-                                <select name="n-entries" id="n-entries" class="n-entries">
-                                    <option value="5">5</option>
-                                    <option value="10" selected>10</option>
-                                    <option value="15">15</option>
-                                </select>
-                            </div>
-
                             <div className="pages">
                                 <ul>
-                                    <li><span className="active">1</span></li>
-                                    <li><button>2</button></li>
-                                    <li><button>3</button></li>
-                                    <li><button>4</button></li>
-                                    <li><span>...</span></li>
-                                    <li><button>9</button></li>
-                                    <li><button>10</button></li>
+                                    <span>page {paginaActualAutores} of {totalPaginasAuthors}</span>
+                                    <li><button onClick={() => previousPage("authors")}>previous</button></li>
+                                    <li><button onClick={() => nextPage("authors")}>next</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -160,27 +159,43 @@ const Tabla = (props) => {
                                     <label htmlFor="entries">Number of entries:</label>
                                     <input type="number" size="2" min="1" defaultValue={entradasPorPaginaPublicaciones} onChange={() => entries("Publications")} id="entriesPublications" />
                                 </div>
+
                             </div>
 
-                            <div class="search">
-                                <input type="search" id="myInputPublications" class="search-input" placeholder="Search..." onKeyUp={() => searchOnTablePublications(result)} />
+                            <div class="utilities">
+                                <div className="filter">
+                                    <a className='dropdown-trigger btn' href='#!' data-target='dropdown1'>Filtros</a>
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="#!"><i className="material-icons">assignment</i>Tipo</a></li>
+                                        <li><a href="#!"><i className="material-icons">today</i>Año</a></li>
+                                        <li><a href="#!"><i className="material-icons">event</i>Año de GSS</a></li>
+                                        <li className="divider" tabindex="-1"></li>
+                                        <li><a href="#!"><i className="material-icons">exposure</i> Rango de años</a></li>
+                                        <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="search">
+                                    <input type="search" id="myInputPublications" className="search-input" placeholder="Search..." onKeyUp={() => searchOnTablePublications(result)} />
+                                </div>
                             </div>
+
                         </div>
 
                         <table className="datatable responsive-table" id="tablePublications" >
                             <thead>
                                 <tr>
-                                    <th>Type</th>
-                                    <th>Authors</th>
-                                    <th>Tittle</th>
-                                    <th>Pages</th>
-                                    <th>Year</th>
-                                    <th>Volumen</th>
-                                    <th>Issue</th>
-                                    <th id="j_b">Book_tittle for inproceedings / Journal for articles </th>
-                                    <th>Acronym</th>
-                                    <th>Core</th>
-                                    <th>Ggs</th>
+                                    <th><i class="material-icons">import_export </i>Type</th>
+                                    <th><i class="material-icons">import_export </i>Authors</th>
+                                    <th><i class="material-icons">import_export </i>Tittle</th>
+                                    <th><i class="material-icons">import_export </i>Pages</th>
+                                    <th><i class="material-icons">import_export </i>Year</th>
+                                    <th><i class="material-icons">import_export </i>Volumen</th>
+                                    <th><i class="material-icons">import_export </i>Issue</th>
+                                    <th id="j_b"><i class="material-icons">import_export </i>Book_tittle for inprocedings / Journal for articles </th>
+                                    <th><i class="material-icons">import_export </i>acronym</th>
+                                    <th><i class="material-icons">import_export </i>Core</th>
+                                    <th><i class="material-icons">import_export </i>Ggs</th>
 
                                 </tr>
                             </thead>
@@ -204,13 +219,13 @@ const Tabla = (props) => {
 
             <div className="row">
                 <div className="col s12">
-                    <a className="btn blue-grey darken-2" href="#" id="downloadJson" onClick={() => downloadObjectAsJson(result, "Resultado")}>
+                    <a className="btn blue-grey darken-2" href="#!" id="downloadJson" onClick={() => downloadObjectAsJson(result, "Resultado")}>
                         <i className="material-icons right">
                             file_download
                             </i>
                             Download JSON
                         </a>
-                    <a className="btn blue-grey darken-2" id="back" href="#" onClick={()=> back()}><i className="material-icons right">reply</i>volver</a>
+                    <a className="btn blue-grey darken-2" id="back" href="#!" onClick={() => back()}><i className="material-icons right">reply</i>volver</a>
                 </div>
 
             </div>
