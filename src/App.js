@@ -7,7 +7,6 @@ import Modal from './components/Modal/Modal'
 function App() {
   //state que mostrará o no el formulario
   const [show, setShow] = useState(true);
-
   //state que contiene el resultado de la peticion
   const [result, setresult] = useState([]);
   //state que mostrara o no el modal
@@ -16,7 +15,7 @@ function App() {
   const [authorsModal, setauthorsModal] = useState([]);
   //state para los autores elegidos dentro del modal
   const [authorsChoosen, setauthorsChoosen] = useState([]);
-
+  
   return (
     <div className="App">
       {show
@@ -28,10 +27,11 @@ function App() {
             setShowModal={setShowModal} 
             setauthorsModal={setauthorsModal} 
             authorsChoosen={authorsChoosen} 
+            setauthorsChoosen={setauthorsChoosen}
           />
           {showModal
             ?
-            <Modal listOfAuthors={authorsModal} showModal={showModal} setauthorsChoosen={setauthorsChoosen} />
+            <Modal listOfAuthors={authorsModal} showModal={showModal} setauthorsChoosen={setauthorsChoosen} authorsChoosen={authorsChoosen}/>
             : null
           }
         </Fragment>

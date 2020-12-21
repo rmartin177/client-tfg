@@ -4,7 +4,6 @@ import {syntaxHighlight} from '../utils'
 
 //Esta funcion se encarga de escribir el json en las tablas
 export const writeOnTable = (json, paginaActualAutores, articulosPorPaginaAutores, paginaActualPublicaciones, articulosPorPaginaPublicaciones) => {
-
     //--- Authors ---
     writeAuthorsOnTable(json, paginaActualAutores, articulosPorPaginaAutores);
 

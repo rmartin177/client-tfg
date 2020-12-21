@@ -20,6 +20,7 @@ const Tabla = (props) => {
     const [totalPaginasAuthors, setTotalPaginasAuthors] = useState(1);
 
     useEffect(() => {
+        console.log(result);
         setTotalPaginasPublicaciones(Math.ceil(result.publications.length / entradasPorPaginaPublicaciones));
         setTotalPaginasAuthors(Math.ceil(result.authors.length / entradasPorPaginaAutores));
         writeOnTable(result, paginaActualAutores, entradasPorPaginaAutores, paginaActualPublicaciones, entradasPorPaginaPublicaciones);
@@ -124,12 +125,12 @@ const Tabla = (props) => {
                         <table className="datatable responsive-table" id="tableAuthors" >
                             <thead>
                                 <tr>
-                                    <th> <i class="material-icons">import_export </i> Name</th>
-                                    <th> <i class="material-icons">import_export </i>Indices</th>
-                                    <th><i class="material-icons">import_export </i>Citas</th>
-                                    <th><i class="material-icons">import_export </i>Jcr</th>
-                                    <th><i class="material-icons">import_export </i>Ggs</th>
-                                    <th><i class="material-icons">import_export </i>Core</th>
+                                    <th> <i className="material-icons">import_export </i> Name</th>
+                                    <th> <i className="material-icons">import_export </i>Indices</th>
+                                    <th><i className="material-icons">import_export </i>Citas</th>
+                                    <th><i className="material-icons">import_export </i>Jcr</th>
+                                    <th><i className="material-icons">import_export </i>Ggs</th>
+                                    <th><i className="material-icons">import_export </i>Core</th>
                                 </tr>
                             </thead>
 

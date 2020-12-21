@@ -6,12 +6,12 @@ import M from "materialize-css"
 import Spinner from '../Spinner/Spinner'
 
 const Formulario = (props) => {
-    const { setShow, setresult, setShowModal, setauthorsModal, authorsChoosen } = props;
+    const { setShow, setresult, setShowModal, setauthorsModal, authorsChoosen, setauthorsChoosen } = props;
     const [showSpinner, setSpinner] = useState(false);
-
+    const [number, setnumber] = useState(2);
     useEffect(() => {
-        if (authorsChoosen.length !== 0) {
-            console.log(authorsChoosen);
+        //si intenta hacer esta comprobacion es que hay algun homonimo
+        if (authorsChoosen.length === number - 1) {
             const sanitize = async () => {
                 if (await getJsonSanitize(authorsChoosen)) {
                     //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
@@ -47,6 +47,8 @@ const Formulario = (props) => {
             if (await getJson(autores)) {
                 //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
                 let choose = false;
+                var ar = [];
+                var arChoosen = [];
                 //Hay algun homonimo 
                 if (AuthorsApi.publications === undefined) {
                     AuthorsApi.forEach((elm) => {
@@ -55,12 +57,19 @@ const Formulario = (props) => {
                             for (let index = 0; index < elm.authors.length; index++) {
                                 obj[index] = elm.authors[index];
                             }
-                            setauthorsModal(obj);
+                            ar.push(obj);
                             choose = true;
+                        } else {
+                            setauthorsChoosen([{
+                                "author": elm.authors[0].author,
+                                "link": elm.authors[0].link
+                            }]);
+                           setnumber(number + 1);
                         }
                     });
                 }
-
+                
+                setauthorsModal(ar);
                 //si existe algún homonimo llamamos al modal y este se encargara de mandarnos los autores elegidos para hacer la segunda peticion en el use Effect
                 if (choose)
                     setShowModal(true);
@@ -90,10 +99,9 @@ const Formulario = (props) => {
     }
 
     async function getJsonSanitize(authors) {
-        console.log("Tratando de encontrar los autores,va bien...");
         try {
             //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
-            //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
+            //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info 
             AuthorsApi = (await axios.post("/api/getjsonsanitize", /*{
                 headers: {
                     'Content-Type': 'application/json'
