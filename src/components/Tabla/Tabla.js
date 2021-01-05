@@ -281,6 +281,7 @@ const Tabla = (props) => {
                     className="dropdown-trigger btn"
                     href="#!"
                     data-target="dropdown1"
+                    id="filtros"
                   >
                     Filtros
                   </a>

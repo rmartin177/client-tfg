@@ -1,23 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 #close {
-  background-color: red !important;
-  color: black;
+  background-color: rgb(90, 19, 19) !important;
+  color: rgb(173, 173, 173);
   font-weight: bolder;
 }
 #contador {
   position: fixed;
-  top: 8%;
+  top: 10%;
   left: 3%;
   color: aliceblue;
   background-color: rgb(6, 49, 49);
   padding: 0.5rem;
-  box-shadow: 10px 5px 5px black;
+  box-shadow: 10px 5px 5px rgb(10, 10, 10, 0.6);
   border-radius: 10px;
   z-index: 10000;
 }
 #accept {
-  background-color: green !important;
-  color: black;
+  background-color: rgb(25, 85, 25) !important;
+  color: rgb(173, 173, 173);
   font-weight: bolder;
   margin-right: 0.5rem;
 }
@@ -25,13 +25,14 @@
 .modal-fixed-footer,
 #modal1 {
   width: 95% !important;
-  max-height: 80% !important;
+  height: 75%;
+  max-height: 90% !important;
 }
 
 h5 {
   font-size: 1.64rem;
   line-height: 110%;
-  margin: 0.133333333rem 0 0.156rem 0;
+  margin: 0.633333333rem 0 0.956rem 0;
 }
 .modal,
 .modal-content,
@@ -61,7 +62,7 @@ h5 {
 }
 
 .searchTitles {
-  font-family: "Yeon Sung", cursive;
+  font-family: "Noto Sans", sans-serif;
   color: white;
   font-weight: bolder;
 }

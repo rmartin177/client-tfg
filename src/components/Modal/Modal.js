@@ -77,7 +77,9 @@ const Modal = (props) => {
     const collection = document.querySelector("#list");
     //seleccionamos las cartas
     const cards = collection.getElementsByClassName("card");
-
+    if (listOfAuthors.length === 1) {
+      document.getElementById("modal1").style.height = "45%";
+    }
     //vamos a ir creando div para poner las cartas de cada autor
     for (let index = 0; index < listOfAuthors.length; index++) {
       let divPpal = document.createElement("div");
