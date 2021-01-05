@@ -1,16 +1,67 @@
-#close{
-    background-color: red !important;
-    color: black;
-    font-weight: bolder;
+@import url("https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap");
+#close {
+  background-color: red !important;
+  color: black;
+  font-weight: bolder;
+}
+#contador {
+  position: fixed;
+  top: 8%;
+  left: 3%;
+  color: aliceblue;
+  background-color: rgb(6, 49, 49);
+  padding: 0.5rem;
+  box-shadow: 10px 5px 5px black;
+  border-radius: 10px;
+  z-index: 10000;
+}
+#accept {
+  background-color: green !important;
+  color: black;
+  font-weight: bolder;
+  margin-right: 0.5rem;
+}
+.modal,
+.modal-fixed-footer,
+#modal1 {
+  width: 95% !important;
+  max-height: 80% !important;
 }
 
-#accept{
-    background-color: green !important;
-    color: black;
-    font-weight: bolder;
-    margin-right: 0.5rem;
+h5 {
+  font-size: 1.64rem;
+  line-height: 110%;
+  margin: 0.133333333rem 0 0.156rem 0;
+}
+.modal,
+.modal-content,
+.modal-footer {
+  background-color: var(--dt-background-color-container) !important;
+}
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+.modal .modal-content {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.flex {
+  display: flex;
+  justify-content: center;
 }
 
-.modal, .modal-content{
-    background-color: var(--dt-background-color-container);
+.flex > .card {
+  margin-right: 1rem;
+}
+.flex > .card:first-child {
+  margin-left: 1rem;
+}
+
+.searchTitles {
+  font-family: "Yeon Sung", cursive;
+  color: white;
+  font-weight: bolder;
 }
