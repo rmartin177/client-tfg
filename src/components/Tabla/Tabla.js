@@ -16,7 +16,7 @@ const Tabla = (props) => {
   const [
     entradasPorPaginaPublicaciones,
     setentradasPorPaginaPublicaciones,
-  ] = useState(2);
+  ] = useState(5);
   const [entradasPorPaginaAutores, setentradasPorPaginaAutores] = useState(2);
 
   //paginacion
@@ -148,7 +148,8 @@ const Tabla = (props) => {
   };
 
   const back = () => {
-    setShow(true);
+    window.location.reload();
+    return false;
   };
 
   return (
@@ -280,6 +281,7 @@ const Tabla = (props) => {
                     className="dropdown-trigger btn"
                     href="#!"
                     data-target="dropdown1"
+                    id="filtros"
                   >
                     Filtros
                   </a>

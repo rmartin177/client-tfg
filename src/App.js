@@ -17,6 +17,10 @@ function App() {
   const [authorsChoosen, setauthorsChoosen] = useState([]);
   //state para hacer la llamada a GetSanitize
   const [sanitize, setsanitize] = useState(false);
+  //state para el loading
+  const [showSpinner, setSpinner] = useState(false);
+  //state para lo que busca el usuario poder verlo en el modal
+  const [userSearch, setuserSearch] = useState("");
 
   return (
     <div className="App">
@@ -30,6 +34,9 @@ function App() {
             authorsChoosen={authorsChoosen}
             setauthorsChoosen={setauthorsChoosen}
             sanitize={sanitize}
+            showSpinner={showSpinner}
+            setSpinner={setSpinner}
+            setuserSearch={setuserSearch}
           />
           {showModal ? (
             <Modal
@@ -38,6 +45,8 @@ function App() {
               setauthorsChoosen={setauthorsChoosen}
               authorsChoosen={authorsChoosen}
               setsanitize={setsanitize}
+              setSpinner={setSpinner}
+              userSearch={userSearch}
             />
           ) : null}
         </Fragment>

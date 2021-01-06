@@ -14,8 +14,11 @@ const Formulario = (props) => {
     setauthorsModal,
     authorsChoosen,
     setauthorsChoosen,
+    showSpinner,
+    setSpinner,
+    setuserSearch,
   } = props;
-  const [showSpinner, setSpinner] = useState(false);
+
   const [number, setnumber] = useState(2);
   useEffect(() => {
     //si intenta hacer esta comprobacion es que hay algun homonimo
@@ -50,6 +53,8 @@ const Formulario = (props) => {
         '<span class="errorEmpty">El campo autor está vacio.</span>';
       M.toast({ html: toastHTML, classes: "rounded" });
     } else {
+      //Rellenamos el state con lo que ha ecrito el usuario
+      setuserSearch(autores);
       //hacemos la llamada para ver si ningún autor tiene un homonimo
       //Activamos el spinner mientras carga la petición
       setSpinner(true);
@@ -57,7 +62,6 @@ const Formulario = (props) => {
         //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
         let choose = false;
         var ar = [];
-        var arChoosen = [];
         //Hay algun homonimo
         if (AuthorsApi.publications === undefined) {
           AuthorsApi.forEach((elm) => {
@@ -82,8 +86,9 @@ const Formulario = (props) => {
 
         setauthorsModal(ar);
         //si existe algún homonimo llamamos al modal y este se encargara de mandarnos los autores elegidos para hacer la segunda peticion en el use Effect
-        if (choose) setShowModal(true);
-        else {
+        if (choose) {
+          setShowModal(true);
+        } else {
           //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
           setSpinner(false);
           setShow(false);

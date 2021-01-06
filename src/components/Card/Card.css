@@ -1,0 +1,73 @@
+.card {
+  width: 13%;
+  height: 10rem;
+  border-radius: 20px;
+  background-color: darkslategrey !important;
+}
+.card:hover {
+  cursor: pointer;
+}
+.name {
+  font-size: smaller;
+}
+.actived {
+  background-color: rgb(94, 155, 155) !important;
+  border-radius: 20px !important ;
+}
+.identifier {
+  font-size: smaller;
+}
+
+.university {
+  font-size: 10px;
+  height: 41px;
+  overflow: hidden;
+  white-space: pre-line;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1007px) {
+  .card {
+    width: 20%;
+    height: 10rem;
+    border-radius: 20px;
+    background-color: darkslategrey !important;
+  }
+  .name {
+    font-size: 0.75rem;
+  }
+
+  .identifier {
+    font-size: 0.75rem;
+  }
+  .university {
+    font-size: 0.75rem;
+    height: 41px;
+    overflow: hidden;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 758px) {
+  .card {
+    width: 25%;
+    height: 12rem;
+    border-radius: 20px;
+    background-color: darkslategrey !important;
+  }
+  .name {
+    font-size: 0.75rem;
+  }
+
+  .identifier {
+    font-size: 0.75rem;
+  }
+  .university {
+    font-size: 0.75rem;
+    height: 41px;
+    overflow: hidden;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+  }
+}
