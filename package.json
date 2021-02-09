@@ -13,8 +13,10 @@
     "modules": "^0.4.0",
     "node": "^14.13.1",
     "node-modules": "^1.0.1",
+    "nouislider": "^14.6.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-nouislider": "^2.0.1",
     "react-scripts": "3.4.3"
   },
   "main": "public/electron.js",

@@ -21,6 +21,17 @@ function App() {
   const [showSpinner, setSpinner] = useState(false);
   //state para lo que busca el usuario poder verlo en el modal
   const [userSearch, setuserSearch] = useState("");
+  //state para los filtros
+  const [filtersAuthors, setfiltersAuthors] = useState({
+    checkInproceedings: true,
+    checkArticles: true,
+    checkIncollections: true,
+    checkSchoolar: true,
+    checkGGS: true,
+    checkCore: false,
+    initYear: 1900,
+    endYear: 2050,
+  });
 
   return (
     <div className="App">
@@ -35,7 +46,10 @@ function App() {
             setauthorsChoosen={setauthorsChoosen}
             sanitize={sanitize}
             showSpinner={showSpinner}
+            setsanitize={setsanitize}
             setSpinner={setSpinner}
+            setfiltersAuthors={setfiltersAuthors}
+            filtersAuthors={filtersAuthors}
             setuserSearch={setuserSearch}
           />
           {showModal ? (
