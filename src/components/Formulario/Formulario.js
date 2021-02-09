@@ -19,28 +19,37 @@ const Formulario = (props) => {
     showSpinner,
     setSpinner,
     setuserSearch,
+    setfiltersAuthors,
+    filtersAuthors,
+    setsanitize,
   } = props;
 
   const [number, setnumber] = useState(2);
   const [startYearValue, setstartYearValue] = useState("1990");
   const [endYearValue, setendYearValue] = useState("2021");
+
   useEffect(() => {
     //si intenta hacer esta comprobacion es que hay algun homonimo
     //if (authorsChoosen.length === number - 1) {
     if (sanitize) {
-      const call = async () => {
-        if (await getJsonSanitize(authorsChoosen, filters)) {
-          //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
-          setSpinner(false);
-          setShow(false);
-        }
-      };
-      call();
+      // setSpinner(false);
+      if (checkFilters) {
+        setSpinner(true);
+        console.log(authorsChoosen);
+        const call = async () => {
+          if (await getJsonSanitize(authorsChoosen, filtersAuthors)) {
+            //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
+            setSpinner(false);
+            setShow(false);
+          }
+        };
+        call();
+      }
     }
-  }, [authorsChoosen, getJsonSanitize, setShow, setSpinner, sanitize]);
+  }, [authorsChoosen]);
   //objeto para comprobar si los autores se tienen homonimo
   var AuthorsApi;
-  var filters = {};
+  var auxBack = {};
   //Array con los nombre de los autores del formulario y los filtros
   const autores = [];
 
@@ -65,7 +74,7 @@ const Formulario = (props) => {
       //Activamos el spinner mientras carga la petición
       if (checkFilters()) {
         setSpinner(true);
-        if (await getJson(autores, filters)) {
+        if (await getJson(autores, filtersAuthors)) {
           //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
           let choose = false;
           var ar = [];
@@ -109,10 +118,13 @@ const Formulario = (props) => {
     try {
       //RESULT LO CONVIERTES A JSON Y LO MUESTRAS EN TABLAS Y LO PERMITES DESCARGAR
       //conversion a Json y lo insertamos en el state para que la tabla pueda acceder a la info
+
       let aux = {
         authors,
-        filters,
+        filters: auxBack,
       };
+      console.log(aux);
+      console.log(auxBack);
       AuthorsApi = (await axios.post("/api/getjson", aux)).data;
       setresult(AuthorsApi);
       return true;
@@ -129,6 +141,7 @@ const Formulario = (props) => {
         authors,
         filters,
       };
+      setsanitize(false);
       AuthorsApi = (
         await axios.post(
           "/api/getjsonsanitize",
@@ -144,6 +157,7 @@ const Formulario = (props) => {
       return true;
     } catch (error) {
       console.log(error);
+      setsanitize(false);
       return false;
     }
   }
@@ -151,20 +165,22 @@ const Formulario = (props) => {
   const checkFilters = () => {
     let ok = false;
     var filterChecked = document.querySelectorAll("#filtersContainer input");
-    console.log(filterChecked.length);
-    if (filterChecked.length === 0) {
+    var filtros = document.querySelectorAll(".checked");
+
+    console.log(filtros.length);
+    if (filtros.length === 0) {
       var toastHTML =
         '<span class="errorEmpty">Choose at least one filter.</span>';
       M.toast({ html: toastHTML, classes: "rounded" });
     } else {
-      //hay que formar el objeto que mando a ruben
       for (let index = 0; index < filterChecked.length; index++) {
         if (filterChecked[index].classList.contains("checked"))
-          filters[filterChecked[index].value] = true;
-        else filters[filterChecked[index].value] = false;
+          auxBack[filterChecked[index].value] = true;
+        else auxBack[filterChecked[index].value] = false;
       }
-      filters["initYear"] = startYearValue;
-      filters["endYear"] = endYearValue;
+      auxBack["initYear"] = startYearValue;
+      auxBack["endYear"] = endYearValue;
+      setfiltersAuthors(auxBack);
       ok = true;
     }
     return ok;

@@ -179,7 +179,7 @@ const Tabla = (props) => {
 
       <div className="row tabContent" id="tabAuthor">
         <div className="col s12">
-          <h3 className="white-text">Autores</h3>
+          <h6 className="white-text">Autores</h6>
           <div className="datatable-container">
             <div className="header-tools">
               <div className="tools">
@@ -210,30 +210,17 @@ const Tabla = (props) => {
             <table className="datatable" id="tableAuthors">
               <thead>
                 <tr>
-                  <th>
-                    {" "}
-                    <i className="material-icons">import_export </i> Name
-                  </th>
-                  <th>
-                    {" "}
-                    <i className="material-icons">import_export </i>Indices
-                  </th>
-                  <th>
-                    <i className="material-icons">import_export </i>Citas
-                  </th>
-                  <th>
-                    <i className="material-icons">import_export </i>Jcr
-                  </th>
-                  <th>
-                    <i className="material-icons">import_export </i>Ggs
-                  </th>
-                  <th>
-                    <i className="material-icons">import_export </i>Core
-                  </th>
+                  <th>Name</th>
+                  <th>Indices</th>
+                  <th>Citas</th>
+                  <th>Jcr</th>
+                  <th>Ggs</th>
+                  <th>Core</th>
                 </tr>
               </thead>
-
-              <tbody id="dataTableAuthors"></tbody>
+              <div className="scrollit">
+                <tbody id="dataTableAuthors"></tbody>
+              </div>
             </table>
 
             <div class="footer-tools">
@@ -258,7 +245,7 @@ const Tabla = (props) => {
       </div>
       <div className="row tabContent non-display" id="tabPublications">
         <div className="col s12">
-          <h3 className="white-text">Publications</h3>
+          <h6 className="white-text">Publications</h6>
           <div className="datatable-container">
             <div className="header-tools">
               <div className="tools">
@@ -330,44 +317,24 @@ const Tabla = (props) => {
             <table className="datatable" id="tablePublications">
               <thead>
                 <tr>
-                  <th>
-                    <i class="material-icons">import_export </i>Type
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Authors
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Tittle
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Pages
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Year
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Volumen
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Issue
-                  </th>
+                  <th>Type</th>
+                  <th>Authors</th>
+                  <th>Tittle</th>
+                  <th>Pages</th>
+                  <th>Year</th>
+                  <th>Volumen</th>
+                  <th>Issue</th>
                   <th id="j_b">
-                    <i class="material-icons">import_export </i>Book_tittle for
-                    inprocedings / Journal for articles{" "}
+                    Book_tittle for inprocedings / Journal for articles
                   </th>
-                  <th>
-                    <i class="material-icons">import_export </i>acronym
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Core
-                  </th>
-                  <th>
-                    <i class="material-icons">import_export </i>Ggs
-                  </th>
+                  <th>acronym</th>
+                  <th>Core</th>
+                  <th>Ggs</th>
                 </tr>
               </thead>
-
-              <tbody id="dataTablePublications"></tbody>
+              <div className="scrollit">
+                <tbody id="dataTablePublications"></tbody>
+              </div>
             </table>
 
             <div className="footer-tools">
