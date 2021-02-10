@@ -11,7 +11,7 @@
   --dt-status-away-color: lightsalmon;
   --dt-status-offline-color: lightgray;
 
-  --dt-padding: 12px;
+  --dt-padding: 5px;
   --dt-padding-s: 6px;
   --dt-padding-xs: 2px;
 
@@ -51,7 +51,8 @@
   padding: var(--dt-padding);
   padding-left: 0;
   display: flex;
-  align-items: baseline;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .datatable-container .header-tools .search {
@@ -252,7 +253,7 @@
 
 #entriesPublications,
 #entriesAuthors {
-  width: 2.5rem;
+  width: 3rem;
   margin-left: 0.6rem;
   color: white;
   font-size: 1rem;
@@ -302,7 +303,7 @@ tbody {
 }
 
 tbody {
-  max-height: 18rem;
+  max-height: 55vh;
   overflow-y: auto;
 }
 table {
@@ -316,4 +317,23 @@ thead th {
 
 thead th:last-child {
   width: 156px; /* 140px + 16px scrollbar width */
+}
+.pd {
+  margin-bottom: 10px;
+}
+
+#thAuthor th,
+td,
+tr {
+  max-width: 15% !important;
+  width: 19.5% !important ;
+}
+#thPublications > th,
+td {
+  width: 8.18% !important;
+}
+th,
+td {
+  max-width: 8.18% !important;
+  /* width: 8.18%; */
 }

@@ -18,7 +18,7 @@ export function syntaxHighlight(json) {
 //funcion que comprueba si existe el elemento y te devuelve eso o lo pone a null
 export function exist(obj) {
   if (obj) return obj;
-  else return "-";
+  else return "No data";
 }
 
 //funcion que agrega un elmento a la fila de una tabla

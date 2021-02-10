@@ -154,7 +154,7 @@ const Tabla = (props) => {
 
   return (
     <Fragment>
-      <div className="row">
+      <div className="row pd">
         <div className="col s12 non-padding">
           <ul className="tabs">
             <li
@@ -177,6 +177,27 @@ const Tabla = (props) => {
         </div>
       </div>
 
+      <div className="row">
+        <div className="col s12">
+          <a
+            className="btn blue-grey darken-2"
+            href="#!"
+            id="downloadJson"
+            onClick={() => downloadObjectAsJson(result, "Resultado")}
+          >
+            <i className="material-icons right">file_download</i>
+            Download JSON
+          </a>
+          <a
+            className="btn blue-grey darken-2"
+            id="back"
+            href="#!"
+            onClick={() => back()}
+          >
+            <i className="material-icons right">reply</i>volver
+          </a>
+        </div>
+      </div>
       <div className="row tabContent" id="tabAuthor">
         <div className="col s12">
           <h6 className="white-text">Autores</h6>
@@ -187,7 +208,7 @@ const Tabla = (props) => {
                   <label htmlFor="entries">Number of entries:</label>
                   <input
                     type="number"
-                    size="2"
+                    size="3"
                     min="1"
                     defaultValue={entradasPorPaginaAutores}
                     onChange={() => entries("Authors")}
@@ -209,7 +230,7 @@ const Tabla = (props) => {
 
             <table className="datatable" id="tableAuthors">
               <thead>
-                <tr>
+                <tr id="thAuthor">
                   <th>Name</th>
                   <th>Indices</th>
                   <th>Citas</th>
@@ -253,7 +274,7 @@ const Tabla = (props) => {
                   <label htmlFor="entries">Number of entries:</label>
                   <input
                     type="number"
-                    size="2"
+                    size="3"
                     min="1"
                     defaultValue={entradasPorPaginaPublicaciones}
                     onChange={() => entries("Publications")}
@@ -316,7 +337,7 @@ const Tabla = (props) => {
 
             <table className="datatable" id="tablePublications">
               <thead>
-                <tr>
+                <tr id="thPublications">
                   <th>Type</th>
                   <th>Authors</th>
                   <th>Tittle</th>
@@ -358,28 +379,6 @@ const Tabla = (props) => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col s12">
-          <a
-            className="btn blue-grey darken-2"
-            href="#!"
-            id="downloadJson"
-            onClick={() => downloadObjectAsJson(result, "Resultado")}
-          >
-            <i className="material-icons right">file_download</i>
-            Download JSON
-          </a>
-          <a
-            className="btn blue-grey darken-2"
-            id="back"
-            href="#!"
-            onClick={() => back()}
-          >
-            <i className="material-icons right">reply</i>volver
-          </a>
         </div>
       </div>
     </Fragment>
