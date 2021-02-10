@@ -28,9 +28,9 @@ function App() {
     checkIncollections: true,
     checkSchoolar: true,
     checkGGS: true,
-    checkCore: false,
-    initYear: 1900,
-    endYear: 2050,
+    checkCore: true,
+    initYear: "1990",
+    endYear: "2021",
   });
 
   return (

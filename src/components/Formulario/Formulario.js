@@ -123,8 +123,7 @@ const Formulario = (props) => {
         authors,
         filters: auxBack,
       };
-      console.log(aux);
-      console.log(auxBack);
+
       AuthorsApi = (await axios.post("/api/getjson", aux)).data;
       setresult(AuthorsApi);
       return true;
@@ -164,10 +163,11 @@ const Formulario = (props) => {
 
   const checkFilters = () => {
     let ok = false;
-    var filterChecked = document.querySelectorAll("#filtersContainer input");
-    var filtros = document.querySelectorAll(".checked");
+    var filterChecked = document.querySelectorAll(
+      "#filtersContainer .checkedCustom"
+    );
+    var filtros = document.querySelectorAll("#filtersContainer .checked");
 
-    console.log(filtros.length);
     if (filtros.length === 0) {
       var toastHTML =
         '<span class="errorEmpty">Choose at least one filter.</span>';
@@ -175,11 +175,12 @@ const Formulario = (props) => {
     } else {
       for (let index = 0; index < filterChecked.length; index++) {
         if (filterChecked[index].classList.contains("checked"))
-          auxBack[filterChecked[index].value] = true;
-        else auxBack[filterChecked[index].value] = false;
+          auxBack[filterChecked[index].getAttribute("value")] = true;
+        else auxBack[filterChecked[index].getAttribute("value")] = false;
       }
       auxBack["initYear"] = startYearValue;
       auxBack["endYear"] = endYearValue;
+      console.log(auxBack);
       setfiltersAuthors(auxBack);
       ok = true;
     }
@@ -187,9 +188,8 @@ const Formulario = (props) => {
   };
 
   const addCheck = (e) => {
+    e.target.classList.toggle("customCheck");
     e.target.classList.toggle("checked");
-    e.target.removeAttribute("checked");
-    // e.target.toggleAttribute("checked");
   };
   return (
     <Fragment>
@@ -234,118 +234,118 @@ const Formulario = (props) => {
             </div>
 
             <div id="filtersContainer">
-              <form action="#" className="filters">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="checkArticles"
-                    // className="checked"
-                    onClick={(e) => {
-                      addCheck(e);
-                    }}
-                  />
-                  <span>Revista</span>
-                </label>
-                <p></p>
+              <div className="filters white-text">
+                <div className="subClassesFilters">
+                  <span className="titleFilter">Type of entry:</span>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkArticles"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Revista</span>
+                    </div>
+                  </p>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkInproceedings"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Inproceeding</span>
+                    </div>
+                  </p>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkIncollections"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Incollections</span>
+                    </div>
+                  </p>
+                </div>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkInproceedings"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Inproceeding</span>
-                  </label>
-                </p>
+                <div className="subClassesFilters">
+                  <span className="titleFilter">Metrics:</span>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkCore"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Core</span>
+                    </div>
+                  </p>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkIncollections"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Incollections</span>
-                  </label>
-                </p>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkGGS"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Ggs</span>
+                    </div>
+                  </p>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkCore"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Core</span>
-                  </label>
-                </p>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkJRC"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Jcr</span>
+                    </div>
+                  </p>
+                </div>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkGGS"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Ggs</span>
-                  </label>
-                </p>
+                <div className="subClassesFilters">
+                  <span className="titleFilter ">Number of appointments:</span>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkSchoolar"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Scholar</span>
+                    </div>
+                  </p>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkSchoolar"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Schoolar</span>
-                  </label>
-                </p>
-
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkJRC"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Jrc</span>
-                  </label>
-                </p>
-
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkScopus"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Scopus</span>
-                  </label>
-                </p>
-              </form>
+                  <p>
+                    <div className="customCheckDiv">
+                      <span
+                        className="checkedCustom checked"
+                        value="checkScopus"
+                        onClick={(e) => {
+                          addCheck(e);
+                        }}
+                      ></span>
+                      <span>Scopus</span>
+                    </div>
+                  </p>
+                </div>
+              </div>
             </div>
             <button
               type="button"
