@@ -65,7 +65,11 @@ function App() {
           ) : null}
         </Fragment>
       ) : (
-        <Tabla setShow={setShow} result={result} />
+        <Tabla
+          setShow={setShow}
+          result={result}
+          filtersAuthors={filtersAuthors}
+        />
       )}
     </div>
   );

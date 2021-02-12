@@ -26,7 +26,7 @@ const slider = (props) => {
   // Update the current slider value (each time you drag the slider handle)
 
   return (
-    <div class="slidecontainer white-text">
+    <div className="slidecontainer white-text">
       <div>
         <p>Start Year:</p>
         <input
@@ -34,7 +34,7 @@ const slider = (props) => {
           min="1990"
           max="2021"
           value={startYearValue}
-          class="slider"
+          className="slider"
           id="start"
           onChange={(e) => update(e)}
         />
@@ -50,7 +50,7 @@ const slider = (props) => {
           min="1990"
           max="2021"
           value={endYearValue}
-          class="slider"
+          className="slider"
           id="end"
           onChange={(e) => update2(e)}
         />
