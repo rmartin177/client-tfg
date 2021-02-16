@@ -358,19 +358,19 @@ thead th:last-child {
 }
 
 #tablePublications th:nth-child(1) {
-  width: 3.4% !important;
+  width: 3.2% !important;
 }
 #tablePublications th:nth-child(2) {
   width: 4.4% !important;
 }
 #tablePublications th:nth-child(3) {
-  width: 6.8% !important;
+  width: 6.3% !important;
 }
 #tablePublications th:nth-child(4) {
   width: 1% !important;
 }
 #tablePublications th:nth-child(5) {
-  width: 2.1% !important;
+  width: 1.9% !important;
 }
 #tablePublications th:nth-child(6) {
   width: 1% !important;
@@ -410,7 +410,7 @@ thead th:last-child {
   width: 11.8% !important;
 }
 #tablePublications td:nth-child(4) {
-  width: 3.7% !important;
+  width: 3.9% !important;
 }
 #tablePublications td:nth-child(5) {
   width: 3.7% !important;
