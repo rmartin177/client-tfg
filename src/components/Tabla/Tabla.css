@@ -361,29 +361,34 @@ thead th:last-child {
   width: 3.2% !important;
 }
 #tablePublications th:nth-child(2) {
-  width: 4.4% !important;
+  width: 1.5% !important;
 }
 #tablePublications th:nth-child(3) {
-  width: 6.3% !important;
+  width: 5.6% !important;
+  text-align: left;
 }
 #tablePublications th:nth-child(4) {
   width: 1% !important;
+  text-align: center;
 }
 #tablePublications th:nth-child(5) {
-  width: 1.9% !important;
+  width: 1% !important;
+  text-align: center;
 }
 #tablePublications th:nth-child(6) {
   width: 1% !important;
+  text-align: center;
 }
 #tablePublications th:nth-child(7) {
   width: 1.2% !important;
+  text-align: center;
 }
 
 #tablePublications th:nth-child(8) {
-  width: 10.5% !important;
+  width: 7.5% !important;
 }
 #tablePublications th:nth-child(9) {
-  width: 3.38%;
+  width: 3%;
 }
 #tablePublications th:nth-child(10) {
   width: 3.38% !important;
@@ -404,39 +409,42 @@ thead th:last-child {
   width: 4.38% !important;
 }
 #tablePublications td:nth-child(2) {
-  width: 8.38% !important;
+  width: 6.2% !important;
 }
 #tablePublications td:nth-child(3) {
-  width: 11.8% !important;
+  width: 12.8% !important;
 }
 #tablePublications td:nth-child(4) {
-  width: 3.9% !important;
+  width: 3.6% !important;
+  text-align: center;
 }
 #tablePublications td:nth-child(5) {
-  width: 3.7% !important;
+  width: 3.8% !important;
+  text-align: center;
 }
 #tablePublications td:nth-child(6) {
-  width: 3.7% !important;
+  width: 4.5% !important;
+  text-align: center;
 }
 #tablePublications td:nth-child(7) {
   width: 3.7% !important;
+  text-align: center;
 }
 #tablePublications td:nth-child(8) {
-  width: 18.38% !important;
+  width: 17.38% !important;
 }
 #tablePublications td:nth-child(9) {
   width: 3.7% !important;
 }
-
 #tablePublications td:nth-child(10) {
-  width: 5.38% !important;
+  width: 4% !important;
 }
 #tablePublications td:nth-child(11) {
-  width: 5.38% !important;
+  width: 6.38% !important;
 }
 #tablePublications td:nth-child(12) {
-  width: 5.38% !important;
+  width: 3.38% !important;
 }
 #tablePublications td:nth-child(13) {
-  width: 5.38% !important;
+  width: 6.38% !important;
 }

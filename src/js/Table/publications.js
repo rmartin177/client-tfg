@@ -91,11 +91,11 @@ function auxPublicationsWrite(json, index, dataTableElements, filtersAuthors) {
     tableHead.appendChild(tdAuthors);
 
     //--- title ---
-    let td = document.createElement("td");
-    td.innerText = exist(elm.title);
-    td.classList.add("title_");
-    td.setAttribute("list", "false");
-    tableHead.appendChild(td);
+    let tdTitle = document.createElement("td");
+    tdTitle.innerText = exist(elm.title);
+    tdTitle.classList.add("title_");
+    tdTitle.setAttribute("list", "false");
+    tableHead.appendChild(tdTitle);
 
     //--- pages ---
     addToTable(elm.pages, tableHead);
@@ -123,18 +123,21 @@ function auxPublicationsWrite(json, index, dataTableElements, filtersAuthors) {
     //---Core---
     if (elm.core !== undefined)
       addArrtoTable(elm.core, tableHead, filtersAuthors["checkCore"]);
+    else addToTable("No data", tableHead);
 
     //--- Ggs ---
     if (elm.ggs !== undefined)
       addArrtoTable(elm.ggs, tableHead, filtersAuthors["checkGGS"]);
+    else addToTable("No data", tableHead);
 
     //---Citas---
     if (elm.citas !== undefined)
       addArrtoTable(elm.citas, tableHead, filtersAuthors["checkGGS"]);
+    else addToTable("No data", tableHead);
 
     //---JCR---
     let tdJcr = document.createElement("td");
-    td.innerHTML = "No data";
+    tdJcr.innerHTML = "No data";
     tableHead.appendChild(tdJcr);
 
     //se le agrega la funcionalidad de desplegado a cada fila
