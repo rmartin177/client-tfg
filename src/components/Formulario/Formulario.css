@@ -5,8 +5,10 @@ h1 {
   color: white;
 }
 body {
-  height: 100vh;
+  height: max-content;
+  min-height: 100.05vh;
   background: #bdc3c7;
+  background-size: cover;
   background: -webkit-linear-gradient(to bottom, #2c3e50, #bdc3c7);
   background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
 }
@@ -36,6 +38,13 @@ body {
   width: 87% !important;
   margin-left: 0.5rem;
   margin-bottom: 0.5rem;
+  height: 1.5rem;
+}
+
+.loginJCR {
+  width: 87% !important;
+  margin-left: 0.5rem;
+  margin: 2.5rem auto;
   height: 1.5rem;
 }
 
@@ -114,6 +123,9 @@ body {
   padding: 0.75rem;
   border-radius: 12px;
   margin-bottom: 1rem;
+}
+.hidden {
+  display: none;
 }
 .titleFilter {
   margin-right: 5px;

@@ -190,6 +190,23 @@ const Formulario = (props) => {
   const addCheck = (e) => {
     e.target.classList.toggle("customCheck");
     e.target.classList.toggle("checked");
+    if (
+      e.target.attributes.value.value === "checkJRC" ||
+      e.target.attributes.value.value === "checkScopus"
+    ) {
+      //hay que comprobar que los dos esten en false para quitar la visibilidad
+      let jcr = document.getElementById("JCRInput");
+      let scopus = document.getElementById("ScopusInput");
+      //ninguno esta habilitado se oculta el login
+      if (
+        jcr.classList.contains("customCheck") &&
+        scopus.classList.contains("customCheck")
+      ) {
+        document.getElementById("logIn").classList.add("hidden");
+      } else {
+        document.getElementById("logIn").classList.remove("hidden");
+      }
+    }
   };
   return (
     <Fragment>
@@ -222,6 +239,29 @@ const Formulario = (props) => {
               >
                 🗑️
               </span>
+            </div>
+
+            <div id="logIn">
+              <div className="input-field col s12 loginJCR">
+                <label htmlFor="user/email" className="white-text">
+                  User/Email:
+                </label>
+                <input
+                  type="text"
+                  className=" validate white-text"
+                  name="user/email"
+                />
+              </div>
+              <div className="input-field col s11 loginJCR">
+                <label htmlFor="password" className="white-text">
+                  Password:
+                </label>
+                <input
+                  type="password"
+                  className=" validate white-text"
+                  name="password"
+                />
+              </div>
             </div>
 
             <div id="test-slider">
@@ -297,6 +337,7 @@ const Formulario = (props) => {
                     <span
                       className="checkedCustom checked"
                       value="checkJRC"
+                      id="JCRInput"
                       onClick={(e) => {
                         addCheck(e);
                       }}
@@ -322,6 +363,7 @@ const Formulario = (props) => {
                     <span
                       className="checkedCustom checked"
                       value="checkScopus"
+                      id="ScopusInput"
                       onClick={(e) => {
                         addCheck(e);
                       }}
