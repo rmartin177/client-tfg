@@ -48,7 +48,7 @@ const Tabla = (props) => {
     var elems = document.querySelectorAll(".chips");
     var instances = M.Chips.init(elems);
     //llamamos a la funcion que nos da información sobre los filtros
-    clearFilterInfo(filtersAuthors);
+    //clearFilterInfo(filtersAuthors);
   }, [
     result,
     entradasPorPaginaAutores,
