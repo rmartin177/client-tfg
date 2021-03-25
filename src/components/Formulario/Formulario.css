@@ -4,6 +4,10 @@
 h1 {
   color: white;
 }
+.whiteText {
+  background-color: transparent;
+  color: white;
+}
 body {
   height: max-content;
   min-height: 100.05vh;

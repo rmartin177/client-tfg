@@ -27,6 +27,10 @@ const Formulario = (props) => {
   const [number, setnumber] = useState(2);
   const [startYearValue, setstartYearValue] = useState("1990");
   const [endYearValue, setendYearValue] = useState("2021");
+  const [login, setlogin] = useState({
+    mail: "",
+    pass: "",
+  });
 
   useEffect(() => {
     //si intenta hacer esta comprobacion es que hay algun homonimo
@@ -53,6 +57,12 @@ const Formulario = (props) => {
   //Array con los nombre de los autores del formulario y los filtros
   const autores = [];
 
+  const onChangeHandler = (e) => {
+    setlogin({
+      ...login,
+      [e.target.name]: e.target.value,
+    });
+  };
   //Funcion que se ejecuta cuando se pulsa el submit
   const saveAuthors = async (e) => {
     e.preventDefault();
@@ -180,6 +190,8 @@ const Formulario = (props) => {
       }
       auxBack["initYear"] = startYearValue;
       auxBack["endYear"] = endYearValue;
+      auxBack["mail"] = login.mail;
+      auxBack["pass"] = login.pass;
       console.log(auxBack);
       setfiltersAuthors(auxBack);
       ok = true;
@@ -187,6 +199,7 @@ const Formulario = (props) => {
     return ok;
   };
 
+  //funcion para cambiar los checkbox
   const addCheck = (e) => {
     e.target.classList.toggle("customCheck");
     e.target.classList.toggle("checked");
@@ -241,6 +254,10 @@ const Formulario = (props) => {
               </span>
             </div>
 
+            <p className="whiteText">
+              University login for JCR or Scopus (need to select JCR or Scopus
+              filter)
+            </p>
             <div id="logIn">
               <div className="input-field col s12 loginJCR">
                 <label htmlFor="user/email" className="white-text">
@@ -249,7 +266,8 @@ const Formulario = (props) => {
                 <input
                   type="text"
                   className=" validate white-text"
-                  name="user/email"
+                  name="mail"
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </div>
               <div className="input-field col s11 loginJCR">
@@ -259,7 +277,8 @@ const Formulario = (props) => {
                 <input
                   type="password"
                   className=" validate white-text"
-                  name="password"
+                  name="pass"
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </div>
             </div>

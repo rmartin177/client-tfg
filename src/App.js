@@ -29,6 +29,10 @@ function App() {
     checkSchoolar: true,
     checkGGS: true,
     checkCore: true,
+    checkScopus: true,
+    checkJCR: true,
+    mail: "",
+    pass: "",
     initYear: "1990",
     endYear: "2021",
   });
