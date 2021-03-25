@@ -8,34 +8,25 @@ const slider = (props) => {
     setstartYearValue,
     setendYearValue,
   } = props;
-  const update = () => {
-    let slider1 = document.getElementById("start");
+  const update = (e) => {
     let output1 = document.getElementById("startYear");
     if (output1 != null) {
-      output1.innerHTML = slider1.value;
-      slider1.oninput = function () {
-        output1.innerHTML = this.value;
-        setstartYearValue(this.value);
-      };
+      output1.innerHTML = e.target.value;
+      setstartYearValue(e.target.value);
     }
   };
-  const update2 = () => {
-    let slider2 = document.getElementById("end");
+  const update2 = (e) => {
     let output2 = document.getElementById("endYear");
-
     if (output2 != null) {
-      output2.innerHTML = slider2.value;
-      slider2.oninput = function () {
-        output2.innerHTML = this.value;
-        setendYearValue(this.value);
-      };
+      output2.innerHTML = e.target.value;
+      setendYearValue(e.target.value);
     }
   };
 
   // Update the current slider value (each time you drag the slider handle)
 
   return (
-    <div class="slidecontainer white-text">
+    <div className="slidecontainer white-text">
       <div>
         <p>Start Year:</p>
         <input
@@ -43,9 +34,9 @@ const slider = (props) => {
           min="1990"
           max="2021"
           value={startYearValue}
-          class="slider"
+          className="slider"
           id="start"
-          onChange={() => update()}
+          onChange={(e) => update(e)}
         />
         <p>
           Year: <span id="startYear">1990</span>
@@ -59,9 +50,9 @@ const slider = (props) => {
           min="1990"
           max="2021"
           value={endYearValue}
-          class="slider"
+          className="slider"
           id="end"
-          onChange={() => update2()}
+          onChange={(e) => update2(e)}
         />
         <p>
           Year: <span id="endYear">2021</span>

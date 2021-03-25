@@ -28,9 +28,13 @@ function App() {
     checkIncollections: true,
     checkSchoolar: true,
     checkGGS: true,
-    checkCore: false,
-    initYear: 1900,
-    endYear: 2050,
+    checkCore: true,
+    checkScopus: true,
+    checkJCR: true,
+    mail: "",
+    pass: "",
+    initYear: "1990",
+    endYear: "2021",
   });
 
   return (
@@ -65,7 +69,11 @@ function App() {
           ) : null}
         </Fragment>
       ) : (
-        <Tabla setShow={setShow} result={result} />
+        <Tabla
+          setShow={setShow}
+          result={result}
+          filtersAuthors={filtersAuthors}
+        />
       )}
     </div>
   );

@@ -18,7 +18,7 @@ export function syntaxHighlight(json) {
 //funcion que comprueba si existe el elemento y te devuelve eso o lo pone a null
 export function exist(obj) {
   if (obj) return obj;
-  else return "-";
+  else return "No data";
 }
 
 //funcion que agrega un elmento a la fila de una tabla
@@ -29,8 +29,10 @@ export function addToTable(elm, table) {
 }
 //limpia cualquier elemento
 export function clearElement(elm) {
-  while (elm.lastElementChild) {
-    elm.removeChild(elm.lastElementChild);
+  if (elm != null) {
+    while (elm.lastElementChild) {
+      elm.removeChild(elm.lastElementChild);
+    }
   }
 }
 
@@ -70,15 +72,41 @@ export function expand(liAuthors) {
 }
 
 //funcion que inserta en la tabla un listado de elementos sobre todo util para los autores
-export function addArrtoTable(type, table) {
+export function addArrtoTable(type, table, check) {
   var td = document.createElement("td");
   var ul = document.createElement("ul");
 
   Object.entries(type).forEach(([key, value]) => {
     let li = document.createElement("li");
-    li.innerText = "■ " + key + ": " + value;
+    if (check === false) {
+      li.innerText = "No selected";
+    } else {
+      li.innerText = "■ " + key + ": " + value;
+    }
+
     ul.appendChild(li);
   });
   td.appendChild(ul);
   table.appendChild(td);
+}
+
+//Funcion que oculta los filtros segun lo que hayamos selecciinado
+export function clearFilterInfo(obj) {
+  Object.entries(obj).forEach(([key, value]) => {
+    if (key === "initYear") {
+      let initYear = document.querySelectorAll(".initYear");
+      initYear[0].innerText = value;
+      if (initYear.length > 1) initYear[1].innerHTML = value;
+    } else if (key === "endYear") {
+      let endYear = document.querySelectorAll(".endYear");
+      endYear[0].innerText = value;
+      if (endYear.length > 1) endYear[1].innerHTML = value;
+    } else {
+      if (value == false) {
+        let aux = document.querySelectorAll("." + key);
+        aux[0].classList.add("hidden");
+        if (aux.length > 1) aux[1].classList.add("hidden");
+      }
+    }
+  });
 }

@@ -6,12 +6,13 @@ import {
   downloadObjectAsJson,
   tabsFunction,
 } from "../../js/Table/index";
+import { clearFilterInfo } from "../../js/utils";
 import { searchOnTableAuthors } from "../../js/Table/author";
 import { searchOnTablePublications } from "../../js/Table/publications";
 
 const Tabla = (props) => {
   //props
-  const { setShow, result } = props;
+  const { setShow, result, filtersAuthors } = props;
 
   const [
     entradasPorPaginaPublicaciones,
@@ -39,15 +40,15 @@ const Tabla = (props) => {
       paginaActualAutores,
       entradasPorPaginaAutores,
       paginaActualPublicaciones,
-      entradasPorPaginaPublicaciones
+      entradasPorPaginaPublicaciones,
+      filtersAuthors
     );
-    //inicializacion para los filtros
-    var elems = document.querySelectorAll(".dropdown-trigger");
-    M.Dropdown.init(elems, {
-      alignment: "right",
-      hover: true,
-      coverTrigger: false,
-    });
+
+    //iniciamos los chips
+    var elems = document.querySelectorAll(".chips");
+    var instances = M.Chips.init(elems);
+    //llamamos a la funcion que nos da información sobre los filtros
+    clearFilterInfo(filtersAuthors);
   }, [
     result,
     entradasPorPaginaAutores,
@@ -67,7 +68,8 @@ const Tabla = (props) => {
           paginaActualAutores,
           entradasPorPaginaAutores,
           nuevaPaginaActual,
-          entradasPorPaginaPublicaciones
+          entradasPorPaginaPublicaciones,
+          filtersAuthors
         );
         setpaginaActualPublicaciones(nuevaPaginaActual);
       }
@@ -80,7 +82,8 @@ const Tabla = (props) => {
           nuevaPaginaActual,
           entradasPorPaginaAutores,
           paginaActualPublicaciones,
-          entradasPorPaginaPublicaciones
+          entradasPorPaginaPublicaciones,
+          filtersAuthors
         );
         setpaginaActualAutores(nuevaPaginaActual);
       }
@@ -98,7 +101,8 @@ const Tabla = (props) => {
           paginaActualAutores,
           entradasPorPaginaAutores,
           nuevaPaginaActual,
-          entradasPorPaginaPublicaciones
+          entradasPorPaginaPublicaciones,
+          filtersAuthors
         );
         setpaginaActualPublicaciones(nuevaPaginaActual);
       }
@@ -111,7 +115,8 @@ const Tabla = (props) => {
           nuevaPaginaActual,
           entradasPorPaginaAutores,
           paginaActualPublicaciones,
-          entradasPorPaginaPublicaciones
+          entradasPorPaginaPublicaciones,
+          filtersAuthors
         );
         setpaginaActualPublicaciones(nuevaPaginaActual);
       }
@@ -154,7 +159,7 @@ const Tabla = (props) => {
 
   return (
     <Fragment>
-      <div className="row">
+      <div className="row pd">
         <div className="col s12 non-padding">
           <ul className="tabs">
             <li
@@ -167,7 +172,10 @@ const Tabla = (props) => {
             </li>
             <li
               className="tab col s6"
-              onClick={() => tabsFunction("tabPublications")}
+              onClick={() => {
+                tabsFunction("tabPublications"); //llamamos a la funcion que nos da información sobre los filtros
+                clearFilterInfo(filtersAuthors);
+              }}
             >
               <a className="tablinks" href="#!">
                 Publications
@@ -177,6 +185,27 @@ const Tabla = (props) => {
         </div>
       </div>
 
+      <div className="row">
+        <div className="col s12">
+          <a
+            className="btn blue-grey darken-2"
+            href="#!"
+            id="downloadJson"
+            onClick={() => downloadObjectAsJson(result, "Resultado")}
+          >
+            <i className="material-icons right">file_download</i>
+            Download JSON
+          </a>
+          <a
+            className="btn blue-grey darken-2"
+            id="back"
+            href="#!"
+            onClick={() => back()}
+          >
+            <i className="material-icons right">reply</i>Back
+          </a>
+        </div>
+      </div>
       <div className="row tabContent" id="tabAuthor">
         <div className="col s12">
           <h6 className="white-text">Autores</h6>
@@ -187,12 +216,76 @@ const Tabla = (props) => {
                   <label htmlFor="entries">Number of entries:</label>
                   <input
                     type="number"
-                    size="2"
+                    size="3"
                     min="1"
                     defaultValue={entradasPorPaginaAutores}
                     onChange={() => entries("Authors")}
                     id="entriesAuthors"
                   />
+                </div>
+              </div>
+
+              <div className="filtersInfo">
+                <p>
+                  <label className="checkArticles">
+                    <input type="checkbox" checked="checked" />
+                    <span>Articles</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkInproceedings">
+                    <input type="checkbox" checked="checked" />
+                    <span>Inproceedings</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkIncollections">
+                    <input type="checkbox" checked="checked" />
+                    <span>Incollections</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkCore">
+                    <input type="checkbox" checked="checked" />
+                    <span>Core</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkGGS">
+                    <input type="checkbox" checked="checked" />
+                    <span>GGS</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkJRC">
+                    <input type="checkbox" checked="checked" />
+                    <span>JCR</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkSchoolar">
+                    <input type="checkbox" checked="checked" />
+                    <span>Scholar</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkScopus">
+                    <input type="checkbox" checked="checked" />
+                    <span>Scopus</span>
+                  </label>
+                </p>
+                <div className="chip initYear">
+                  <span className="initYear">No data</span>
+                </div>
+                <div className="chip endYear">
+                  <span className="endYear">No data</span>
                 </div>
               </div>
 
@@ -253,7 +346,7 @@ const Tabla = (props) => {
                   <label htmlFor="entries">Number of entries:</label>
                   <input
                     type="number"
-                    size="2"
+                    size="3"
                     min="1"
                     defaultValue={entradasPorPaginaPublicaciones}
                     onChange={() => entries("Publications")}
@@ -262,55 +355,78 @@ const Tabla = (props) => {
                 </div>
               </div>
 
-              <div class="utilities">
-                <div className="filter">
-                  <a
-                    className="dropdown-trigger btn"
-                    href="#!"
-                    data-target="dropdown1"
-                    id="filtros"
-                  >
-                    Filtros
-                  </a>
-                  <ul id="dropdown1" class="dropdown-content">
-                    <li>
-                      <a href="#!">
-                        <i className="material-icons">assignment</i>Tipo
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#!">
-                        <i className="material-icons">today</i>Año
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#!">
-                        <i className="material-icons">event</i>Año de GSS
-                      </a>
-                    </li>
-                    <li className="divider" tabIndex="-1"></li>
-                    <li>
-                      <a href="#!">
-                        <i className="material-icons">exposure</i> Rango de años
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#!">
-                        <i className="material-icons">cloud</i>five
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="filtersInfo">
+                <p>
+                  <label className="checkArticles">
+                    <input type="checkbox" checked="checked" />
+                    <span>Articles</span>
+                  </label>
+                </p>
 
-                <div class="search">
-                  <input
-                    type="search"
-                    id="myInputPublications"
-                    className="search-input"
-                    placeholder="Search..."
-                    onKeyUp={() => searchOnTablePublications(result)}
-                  />
+                <p>
+                  <label className="checkInproceedings">
+                    <input type="checkbox" checked="checked" />
+                    <span>Inproceedings</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkIncollections">
+                    <input type="checkbox" checked="checked" />
+                    <span>Incollections</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkCore">
+                    <input type="checkbox" checked="checked" />
+                    <span>Core</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkGGS">
+                    <input type="checkbox" checked="checked" />
+                    <span>GGS</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkJRC">
+                    <input type="checkbox" checked="checked" />
+                    <span>JCR</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkSchoolar">
+                    <input type="checkbox" checked="checked" />
+                    <span>Scholar</span>
+                  </label>
+                </p>
+
+                <p>
+                  <label className="checkScopus">
+                    <input type="checkbox" checked="checked" />
+                    <span>Scopus</span>
+                  </label>
+                </p>
+                <div className="chip initYear">
+                  <span className="initYear">No data</span>
                 </div>
+                <div className="chip endYear">
+                  <span className="endYear">No data</span>
+                </div>
+              </div>
+
+              <div class="search">
+                <input
+                  type="search"
+                  id="myInputPublications"
+                  className="search-input"
+                  placeholder="Search..."
+                  onKeyUp={() => searchOnTablePublications(result)}
+                />
               </div>
             </div>
 
@@ -319,17 +435,19 @@ const Tabla = (props) => {
                 <tr>
                   <th>Type</th>
                   <th>Authors</th>
-                  <th>Tittle</th>
+                  <th>Title</th>
                   <th>Pages</th>
                   <th>Year</th>
                   <th>Volumen</th>
                   <th>Issue</th>
                   <th id="j_b">
-                    Book_tittle for inprocedings / Journal for articles
+                    Book_title for inprocedings / Journal for articles
                   </th>
-                  <th>acronym</th>
+                  <th>Acronym</th>
                   <th>Core</th>
-                  <th>Ggs</th>
+                  <th>GGS</th>
+                  <th>Citas</th>
+                  <th>JCR</th>
                 </tr>
               </thead>
               <div className="scrollit">
@@ -358,28 +476,6 @@ const Tabla = (props) => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col s12">
-          <a
-            className="btn blue-grey darken-2"
-            href="#!"
-            id="downloadJson"
-            onClick={() => downloadObjectAsJson(result, "Resultado")}
-          >
-            <i className="material-icons right">file_download</i>
-            Download JSON
-          </a>
-          <a
-            className="btn blue-grey darken-2"
-            id="back"
-            href="#!"
-            onClick={() => back()}
-          >
-            <i className="material-icons right">reply</i>volver
-          </a>
         </div>
       </div>
     </Fragment>

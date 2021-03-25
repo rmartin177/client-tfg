@@ -27,6 +27,10 @@ const Formulario = (props) => {
   const [number, setnumber] = useState(2);
   const [startYearValue, setstartYearValue] = useState("1990");
   const [endYearValue, setendYearValue] = useState("2021");
+  const [login, setlogin] = useState({
+    mail: "",
+    pass: "",
+  });
 
   useEffect(() => {
     //si intenta hacer esta comprobacion es que hay algun homonimo
@@ -53,6 +57,12 @@ const Formulario = (props) => {
   //Array con los nombre de los autores del formulario y los filtros
   const autores = [];
 
+  const onChangeHandler = (e) => {
+    setlogin({
+      ...login,
+      [e.target.name]: e.target.value,
+    });
+  };
   //Funcion que se ejecuta cuando se pulsa el submit
   const saveAuthors = async (e) => {
     e.preventDefault();
@@ -123,8 +133,7 @@ const Formulario = (props) => {
         authors,
         filters: auxBack,
       };
-      console.log(aux);
-      console.log(auxBack);
+
       AuthorsApi = (await axios.post("/api/getjson", aux)).data;
       setresult(AuthorsApi);
       return true;
@@ -164,10 +173,11 @@ const Formulario = (props) => {
 
   const checkFilters = () => {
     let ok = false;
-    var filterChecked = document.querySelectorAll("#filtersContainer input");
-    var filtros = document.querySelectorAll(".checked");
+    var filterChecked = document.querySelectorAll(
+      "#filtersContainer .checkedCustom"
+    );
+    var filtros = document.querySelectorAll("#filtersContainer .checked");
 
-    console.log(filtros.length);
     if (filtros.length === 0) {
       var toastHTML =
         '<span class="errorEmpty">Choose at least one filter.</span>';
@@ -175,21 +185,41 @@ const Formulario = (props) => {
     } else {
       for (let index = 0; index < filterChecked.length; index++) {
         if (filterChecked[index].classList.contains("checked"))
-          auxBack[filterChecked[index].value] = true;
-        else auxBack[filterChecked[index].value] = false;
+          auxBack[filterChecked[index].getAttribute("value")] = true;
+        else auxBack[filterChecked[index].getAttribute("value")] = false;
       }
       auxBack["initYear"] = startYearValue;
       auxBack["endYear"] = endYearValue;
+      auxBack["mail"] = login.mail;
+      auxBack["pass"] = login.pass;
+      console.log(auxBack);
       setfiltersAuthors(auxBack);
       ok = true;
     }
     return ok;
   };
 
+  //funcion para cambiar los checkbox
   const addCheck = (e) => {
+    e.target.classList.toggle("customCheck");
     e.target.classList.toggle("checked");
-    e.target.removeAttribute("checked");
-    // e.target.toggleAttribute("checked");
+    if (
+      e.target.attributes.value.value === "checkJRC" ||
+      e.target.attributes.value.value === "checkScopus"
+    ) {
+      //hay que comprobar que los dos esten en false para quitar la visibilidad
+      let jcr = document.getElementById("JCRInput");
+      let scopus = document.getElementById("ScopusInput");
+      //ninguno esta habilitado se oculta el login
+      if (
+        jcr.classList.contains("customCheck") &&
+        scopus.classList.contains("customCheck")
+      ) {
+        document.getElementById("logIn").classList.add("hidden");
+      } else {
+        document.getElementById("logIn").classList.remove("hidden");
+      }
+    }
   };
   return (
     <Fragment>
@@ -224,6 +254,35 @@ const Formulario = (props) => {
               </span>
             </div>
 
+            <p className="whiteText">
+              University login for JCR or Scopus (need to select JCR or Scopus
+              filter)
+            </p>
+            <div id="logIn">
+              <div className="input-field col s12 loginJCR">
+                <label htmlFor="user/email" className="white-text">
+                  User/Email:
+                </label>
+                <input
+                  type="text"
+                  className=" validate white-text"
+                  name="mail"
+                  onChange={(e) => onChangeHandler(e)}
+                />
+              </div>
+              <div className="input-field col s11 loginJCR">
+                <label htmlFor="password" className="white-text">
+                  Password:
+                </label>
+                <input
+                  type="password"
+                  className=" validate white-text"
+                  name="pass"
+                  onChange={(e) => onChangeHandler(e)}
+                />
+              </div>
+            </div>
+
             <div id="test-slider">
               <Slider
                 startYearValue={startYearValue}
@@ -234,118 +293,104 @@ const Formulario = (props) => {
             </div>
 
             <div id="filtersContainer">
-              <form action="#" className="filters">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="checkArticles"
-                    // className="checked"
-                    onClick={(e) => {
-                      addCheck(e);
-                    }}
-                  />
-                  <span>Revista</span>
-                </label>
-                <p></p>
-
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
+              <div className="filters white-text">
+                <div className="subClassesFilters">
+                  <span className="titleFilter">Type of entry:</span>
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
+                      value="checkArticles"
+                      onClick={(e) => {
+                        addCheck(e);
+                      }}
+                    ></span>
+                    <span>Revista</span>
+                  </div>
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
                       value="checkInproceedings"
-                      // className="checked"
-                      onChange={(e) => {
+                      onClick={(e) => {
                         addCheck(e);
                       }}
-                    />
+                    ></span>
                     <span>Inproceeding</span>
-                  </label>
-                </p>
-
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
+                  </div>
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
                       value="checkIncollections"
-                      // className="checked"
-                      onChange={(e) => {
+                      onClick={(e) => {
                         addCheck(e);
                       }}
-                    />
+                    ></span>
                     <span>Incollections</span>
-                  </label>
-                </p>
+                  </div>
+                </div>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
+                <div className="subClassesFilters">
+                  <span className="titleFilter">Metrics:</span>
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
                       value="checkCore"
-                      // className="checked"
-                      onChange={(e) => {
+                      onClick={(e) => {
                         addCheck(e);
                       }}
-                    />
+                    ></span>
                     <span>Core</span>
-                  </label>
-                </p>
+                  </div>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
                       value="checkGGS"
-                      // className="checked"
-                      onChange={(e) => {
+                      onClick={(e) => {
                         addCheck(e);
                       }}
-                    />
+                    ></span>
                     <span>Ggs</span>
-                  </label>
-                </p>
+                  </div>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkSchoolar"
-                      // className="checked"
-                      onChange={(e) => {
-                        addCheck(e);
-                      }}
-                    />
-                    <span>Schoolar</span>
-                  </label>
-                </p>
-
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
                       value="checkJRC"
-                      // className="checked"
-                      onChange={(e) => {
+                      id="JCRInput"
+                      onClick={(e) => {
                         addCheck(e);
                       }}
-                    />
-                    <span>Jrc</span>
-                  </label>
-                </p>
+                    ></span>
+                    <span>Jcr</span>
+                  </div>
+                </div>
 
-                <p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="checkScopus"
-                      // className="checked"
-                      onChange={(e) => {
+                <div className="subClassesFilters">
+                  <span className="titleFilter ">Number of appointments:</span>
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
+                      value="checkSchoolar"
+                      onClick={(e) => {
                         addCheck(e);
                       }}
-                    />
+                    ></span>
+                    <span>Scholar</span>
+                  </div>
+
+                  <div className="customCheckDiv">
+                    <span
+                      className="checkedCustom checked"
+                      value="checkScopus"
+                      id="ScopusInput"
+                      onClick={(e) => {
+                        addCheck(e);
+                      }}
+                    ></span>
                     <span>Scopus</span>
-                  </label>
-                </p>
-              </form>
+                  </div>
+                </div>
+              </div>
             </div>
             <button
               type="button"

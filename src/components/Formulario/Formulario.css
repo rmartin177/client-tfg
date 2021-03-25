@@ -4,9 +4,15 @@
 h1 {
   color: white;
 }
+.whiteText {
+  background-color: transparent;
+  color: white;
+}
 body {
-  height: 100vh;
+  height: max-content;
+  min-height: 100.05vh;
   background: #bdc3c7;
+  background-size: cover;
   background: -webkit-linear-gradient(to bottom, #2c3e50, #bdc3c7);
   background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
 }
@@ -36,6 +42,13 @@ body {
   width: 87% !important;
   margin-left: 0.5rem;
   margin-bottom: 0.5rem;
+  height: 1.5rem;
+}
+
+.loginJCR {
+  width: 87% !important;
+  margin-left: 0.5rem;
+  margin: 2.5rem auto;
   height: 1.5rem;
 }
 
@@ -74,14 +87,53 @@ body {
   flex-wrap: wrap;
 }
 #filtersContainer {
-  width: 60%;
+  width: 100%;
   margin: auto;
   margin-bottom: 1rem;
 }
-[type="checkbox"] + span:not(.lever) {
-  padding-left: 25px !important;
+
+.customCheckDiv {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: antiquewhite;
 }
 
+.checkedCustom {
+  width: 15px;
+  height: 15px;
+  display: block;
+  background-color: #26a69a;
+  margin-right: 5px;
+  border: rgb(65, 63, 63) 2px solid;
+  margin-right: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.customCheck {
+  width: 15px;
+  height: 15px;
+  display: block;
+  background-color: transparent;
+  border: rgb(39, 36, 36) 2px solid;
+  margin-right: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.subClassesFilters {
+  background-color: gray;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+.hidden {
+  display: none;
+}
+.titleFilter {
+  margin-right: 5px;
+}
 @media only screen and (max-width: 633px) {
   .writeAuthor {
     width: 80% !important;
