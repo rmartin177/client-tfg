@@ -296,17 +296,12 @@
   margin-right: 29rem;
 }
 
-thead,
-tbody {
-  display: block;
-}
-
 tbody {
   max-height: 55vh;
   overflow-y: auto;
 }
 table {
-  width: 1516px; /* 140px * 5 column + 16px scrollbar width */
+  width: 1516px;
   border-spacing: 0;
 }
 tbody td,
@@ -337,7 +332,7 @@ input[type="search"]:not(.browser-default) {
 }
 
 thead th:last-child {
-  width: 156px; /* 140px + 16px scrollbar width */
+  width: 156px; /* 140px + 16px scrollbar width */  
 }
 .pd {
   margin-bottom: 10px;
@@ -348,107 +343,4 @@ thead th:last-child {
   background-color: rgba(128, 128, 128, 0.164);
   padding: 0.5rem;
   border-radius: 10px;
-}
-#tableAuthors th {
-  max-width: 15% !important;
-  width: 19.5% !important ;
-}
-#dataTableAuthors td {
-  max-width: 15% !important;
-}
-
-#tablePublications th:nth-child(1) {
-  width: 2.5% !important;
-}
-#tablePublications th:nth-child(2) {
-  width: 2.4% !important;
-}
-#tablePublications th:nth-child(3) {
-  width: 5.5% !important;
-  text-align: left;
-}
-#tablePublications th:nth-child(4) {
-  width: 1% !important;
-  text-align: center;
-}
-#tablePublications th:nth-child(5) {
-  width: 1% !important;
-  text-align: center;
-}
-#tablePublications th:nth-child(6) {
-  width: 1% !important;
-  text-align: center;
-}
-#tablePublications th:nth-child(7) {
-  width: 1.2% !important;
-}
-
-#tablePublications th:nth-child(8) {
-  width: 6.5% !important;
-}
-#tablePublications th:nth-child(9) {
-  width: 3% !important;
-  text-align: center !important;
-}
-#tablePublications th:nth-child(10) {
-  width: 3.38% !important;
-}
-#tablePublications th:nth-child(11) {
-  width: 3% !important;
-}
-#tablePublications th:nth-child(12) {
-  width: 3.14% !important;
-}
-#tablePublications th:nth-child(13) {
-  width: 3.14% !important;
-}
-/* #tablePublications td {
-  width: 7.38% !important;
-} */
-#tablePublications td:nth-child(1) {
-  width: 4.38% !important;
-}
-#tablePublications td:nth-child(2) {
-  width: 6.2% !important;
-}
-#tablePublications td:nth-child(3) {
-  width: 12.8% !important;
-}
-#tablePublications td:nth-child(4) {
-  width: 3.6% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(5) {
-  width: 3.8% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(6) {
-  width: 5.2% !important;
-  text-align: right;
-}
-#tablePublications td:nth-child(7) {
-  width: 3.7% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(8) {
-  width: 17.38% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(9) {
-  width: 3.7% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(10) {
-  width: 4% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(11) {
-  width: 6.38% !important;
-  text-align: center;
-}
-#tablePublications td:nth-child(12) {
-  width: 3.38% !important;
-}
-#tablePublications td:nth-child(13) {
-  width: 6.38% !important;
 }

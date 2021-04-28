@@ -80,9 +80,10 @@ const Formulario = (props) => {
     } else {
       //Rellenamos el state con lo que ha ecrito el usuario
       setuserSearch(autores);
-      //hacemos la llamada para ver si ningún autor tiene un homonimo
       //Activamos el spinner mientras carga la petición
+      //comprobamos si los autores estan bien esccritos, si no pues modal y reload de la pagina
       if (checkFilters()) {
+        //hacemos la llamada para ver si ningún autor tiene un homonimo
         setSpinner(true);
         if (await getJson(autores, filtersAuthors)) {
           //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal

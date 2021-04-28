@@ -48,7 +48,7 @@ const Tabla = (props) => {
     var elems = document.querySelectorAll(".chips");
     var instances = M.Chips.init(elems);
     //llamamos a la funcion que nos da información sobre los filtros
-    clearFilterInfo(filtersAuthors);
+    // clearFilterInfo(filtersAuthors);
   }, [
     result,
     entradasPorPaginaAutores,
@@ -311,9 +311,8 @@ const Tabla = (props) => {
                   <th>Core</th>
                 </tr>
               </thead>
-              <div className="scrollit">
                 <tbody id="dataTableAuthors"></tbody>
-              </div>
+             
             </table>
 
             <div class="footer-tools">
@@ -429,10 +428,25 @@ const Tabla = (props) => {
                 />
               </div>
             </div>
-
+              {/* <div> <span>Type</span>
+                  <span>Authors</span>
+                  <span>Title</span>
+                  <span>Pages</span>
+                  <span>Year</span>
+                  <span>Volumen</span>
+                  <span>Issue</span>
+                  <span id="j_b">
+                    Book_title for inprocedings / Journal for articles
+                  </span>
+                  <span>Acronym</span>
+                  <span>Core</span>
+                  <span>GGS</span>
+                  <span>Citas</span>
+                  <span>JCR</span>
+                </div> */}
             <table className="datatable" id="tablePublications">
               <thead>
-                <tr>
+              <tr>
                   <th>Type</th>
                   <th>Authors</th>
                   <th>Title</th>
@@ -450,9 +464,9 @@ const Tabla = (props) => {
                   <th>JCR</th>
                 </tr>
               </thead>
-              <div className="scrollit">
-                <tbody id="dataTablePublications"></tbody>
-              </div>
+              <tbody id="dataTablePublications">  
+                </tbody>
+           
             </table>
 
             <div className="footer-tools">
