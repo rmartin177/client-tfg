@@ -15,6 +15,7 @@ export const addAuthor = (e) => {
   var input = document.createElement("input");
   input.classList.add("writeAuthor");
   input.classList.add("validate");
+  input.classList.add("white-text");
   input.setAttribute("name", "author" + (number + 1));
   input.setAttribute("type", "text");
   //creamos la label

@@ -163,7 +163,7 @@ const Tabla = (props) => {
         <div className="col s12 non-padding">
           <ul className="tabs">
             <li
-              className="tab col s6"
+              className="tab col s4"
               onClick={() => tabsFunction("tabAuthor")}
             >
               <a className="tablinks" href="#!">
@@ -171,7 +171,7 @@ const Tabla = (props) => {
               </a>
             </li>
             <li
-              className="tab col s6"
+              className="tab col s4"
               onClick={() => {
                 tabsFunction("tabPublications"); //llamamos a la funcion que nos da información sobre los filtros
                 clearFilterInfo(filtersAuthors);
@@ -179,6 +179,16 @@ const Tabla = (props) => {
             >
               <a className="tablinks" href="#!">
                 Publications
+              </a>
+            </li>
+            <li
+              className="tab col s4"
+              onClick={() => {
+                tabsFunction("tabErrors"); //llamamos a la funcion que nos da información sobre los filtros
+              }}
+            >
+              <a className="tablinks" href="#!">
+                Errors
               </a>
             </li>
           </ul>
@@ -491,6 +501,9 @@ const Tabla = (props) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="row tabContent non-display" id="tabErrors">
+        
       </div>
     </Fragment>
   );
