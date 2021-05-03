@@ -228,6 +228,9 @@
   border: 1px solid black;
   background-color: rgb(46, 45, 45);
 }
+.tab:nth-child(3){
+  background: rgb(129, 0, 0);
+}
 #filtros {
   display: none;
 }
@@ -343,4 +346,28 @@ thead th:last-child {
   background-color: rgba(128, 128, 128, 0.164);
   padding: 0.5rem;
   border-radius: 10px;
+}
+
+#tabErrors > ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgb(174, 14, 14);
+  padding: 2rem;
+  margin: 0 1rem;
+  color: rgb(46, 0, 0);
+  
+}
+
+#tabErrors > li{
+ text-align: left;
+}
+
+#errorCounter{
+  color: red;
+  text-align: center;
+  margin-left: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color:rgb(5, 4, 4);
+  border-radius: 1000px;
 }

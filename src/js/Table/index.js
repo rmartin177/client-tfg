@@ -19,13 +19,17 @@ export const writeOnTable = (
     filtersAuthors
   );
 
-  //--- pestaña publications ---
+  //--- Publications ---
   writePublicationOnTable(
     json,
     paginaActualPublicaciones,
     articulosPorPaginaPublicaciones,
     filtersAuthors
   );
+
+ // writeErrors( json);
+
+  //--- Errors ---
 };
 
 //Esta funcion se encarga de todo lo que es la parte de descargar el json

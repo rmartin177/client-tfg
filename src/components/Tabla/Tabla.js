@@ -189,6 +189,7 @@ const Tabla = (props) => {
             >
               <a className="tablinks" href="#!">
                 Errors
+                <span id="errorCounter">4</span>
               </a>
             </li>
           </ul>
@@ -321,8 +322,8 @@ const Tabla = (props) => {
                   <th>Core</th>
                 </tr>
               </thead>
-                <tbody id="dataTableAuthors"></tbody>
-             
+              <tbody id="dataTableAuthors"></tbody>
+
             </table>
 
             <div class="footer-tools">
@@ -438,7 +439,7 @@ const Tabla = (props) => {
                 />
               </div>
             </div>
-              {/* <div> <span>Type</span>
+            {/* <div> <span>Type</span>
                   <span>Authors</span>
                   <span>Title</span>
                   <span>Pages</span>
@@ -456,7 +457,7 @@ const Tabla = (props) => {
                 </div> */}
             <table className="datatable" id="tablePublications">
               <thead>
-              <tr>
+                <tr>
                   <th>Type</th>
                   <th>Authors</th>
                   <th>Title</th>
@@ -474,9 +475,9 @@ const Tabla = (props) => {
                   <th>JCR</th>
                 </tr>
               </thead>
-              <tbody id="dataTablePublications">  
-                </tbody>
-           
+              <tbody id="dataTablePublications">
+              </tbody>
+
             </table>
 
             <div className="footer-tools">
@@ -503,7 +504,20 @@ const Tabla = (props) => {
         </div>
       </div>
       <div className="row tabContent non-display" id="tabErrors">
-        
+        <ul>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+
+        </ul>
       </div>
     </Fragment>
   );
