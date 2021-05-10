@@ -189,7 +189,7 @@ const Tabla = (props) => {
             >
               <a className="tablinks" href="#!">
                 Errors
-                <span id="errorCounter">4</span>
+                <span id="errorCounter">{result.errors ? result.errors.length : "0"}</span>
               </a>
             </li>
           </ul>
