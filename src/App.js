@@ -11,6 +11,8 @@ function App() {
   const [result, setresult] = useState([]);
   //state que mostrara o no el modal
   const [showModal, setShowModal] = useState(false);
+  //state que mostrara o no el modal de errores
+  const [showModalError, setShowModalError] = useState(false);
   //state que muestra los autores en el modal
   const [authorsModal, setauthorsModal] = useState([]);
   //state para los autores elegidos dentro del modal
@@ -21,6 +23,21 @@ function App() {
   const [showSpinner, setSpinner] = useState(false);
   //state para lo que busca el usuario poder verlo en el modal
   const [userSearch, setuserSearch] = useState("");
+  //state para los filtros
+  const [filtersAuthors, setfiltersAuthors] = useState({
+    checkInproceedings: true,
+    checkArticles: true,
+    checkIncollections: true,
+    checkSchoolar: true,
+    checkGGS: true,
+    checkCore: true,
+    checkScopus: true,
+    checkJCR: true,
+    mail: "",
+    pass: "",
+    initYear: "1990",
+    endYear: "2021",
+  });
 
   return (
     <div className="App">
@@ -30,12 +47,17 @@ function App() {
             setShow={setShow}
             setresult={setresult}
             setShowModal={setShowModal}
+            setShowModalError={setShowModalError}
+            showModalError={showModalError}
             setauthorsModal={setauthorsModal}
             authorsChoosen={authorsChoosen}
             setauthorsChoosen={setauthorsChoosen}
             sanitize={sanitize}
             showSpinner={showSpinner}
+            setsanitize={setsanitize}
             setSpinner={setSpinner}
+            setfiltersAuthors={setfiltersAuthors}
+            filtersAuthors={filtersAuthors}
             setuserSearch={setuserSearch}
           />
           {showModal ? (
@@ -51,7 +73,11 @@ function App() {
           ) : null}
         </Fragment>
       ) : (
-        <Tabla setShow={setShow} result={result} />
+        <Tabla
+          setShow={setShow}
+          result={result}
+          filtersAuthors={filtersAuthors}
+        />
       )}
     </div>
   );
