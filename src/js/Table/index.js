@@ -36,11 +36,12 @@ function writeErrors(json) {
   let errorContainer = document.getElementById("tabErrors");
   let ul = document.createElement("ul");
   console.log(json);
-  /*for (let index = 0; index < json.errors.length; index++) {
-    let li = document.createElement(li);
+  for (let index = 0; index < json.errors.length; index++) {
+    let li = document.createElement("li");
     li.innerText = json.error[index];
     ul.appendChild(li);
-  }*/
+  }
+  errorContainer.appendChild(ul);
   
 }
 //Esta funcion se encarga de todo lo que es la parte de descargar el json
