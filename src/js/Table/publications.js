@@ -139,18 +139,22 @@ function auxPublicationsWrite(json, index, dataTableElements, filtersAuthors) {
     let tdJcr = document.createElement("td");
     let ulJcr = document.createElement("ul");
     let liJcr1=document.createElement("li");
-    liJcr1.innerText=elm.jcr.categoria !== undefined ?  "categoria: " + elm.jcr.categoria : "-";
-    ulJcr.appendChild(liJcr1);
-    let liJcr2=document.createElement("li");
-    liJcr2.innerText=elm.jcr.impact_factor !== undefined ? "impact_factor: " + elm.jcr.impact_factor : "-";
-    ulJcr.appendChild(liJcr2);
-    let liJcr3=document.createElement("li");
-    liJcr3.innerText=elm.jcr.position !== undefined ? "position: " + elm.jcr.position : "-";
-    ulJcr.appendChild(liJcr3);
-    let liJcr4=document.createElement("li");
-    liJcr4.innerText=elm.jcr.quartile !== undefined ? "quartile: " + elm.jcr.quartile : "-";
-    ulJcr.appendChild(liJcr4);
-    tdJcr.appendChild(ulJcr);
+    if(elm.jcr !== undefined){
+      liJcr1.innerText=elm.jcr.categoria !== undefined ?  "categoria: " + elm.jcr.categoria : "-";
+      ulJcr.appendChild(liJcr1);
+      let liJcr2=document.createElement("li");
+      liJcr2.innerText=elm.jcr.impact_factor !== undefined ? "impact_factor: " + elm.jcr.impact_factor : "-";
+      ulJcr.appendChild(liJcr2);
+      let liJcr3=document.createElement("li");
+      liJcr3.innerText=elm.jcr.position !== undefined ? "position: " + elm.jcr.position : "-";
+      ulJcr.appendChild(liJcr3);
+      let liJcr4=document.createElement("li");
+      liJcr4.innerText=elm.jcr.quartile !== undefined ? "quartile: " + elm.jcr.quartile : "-";
+      ulJcr.appendChild(liJcr4);
+      tdJcr.appendChild(ulJcr);
+    }else{
+      tdJcr.innerHTML="No data";
+    }
     tableHead.appendChild(tdJcr);
 
     //se le agrega la funcionalidad de desplegado a cada fila
