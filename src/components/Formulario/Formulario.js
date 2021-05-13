@@ -313,7 +313,7 @@ const Formulario = (props) => {
                         addCheck(e);
                       }}
                     ></span>
-                    <span>Revista</span>
+                    <span>Article</span>
                   </div>
                   <div className="customCheckDiv">
                     <span

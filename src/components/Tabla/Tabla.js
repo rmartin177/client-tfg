@@ -504,7 +504,7 @@ const Tabla = (props) => {
         </div>
       </div>
       <div className="row tabContent non-display" id="tabErrors">
-        <ul>
+        {/* <ul>
           <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
           <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
           <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
@@ -517,7 +517,7 @@ const Tabla = (props) => {
           <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
           <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
 
-        </ul>
+        </ul> */}
       </div>
     </Fragment>
   );
