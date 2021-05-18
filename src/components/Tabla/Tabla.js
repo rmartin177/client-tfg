@@ -48,7 +48,7 @@ const Tabla = (props) => {
     var elems = document.querySelectorAll(".chips");
     var instances = M.Chips.init(elems);
     //llamamos a la funcion que nos da información sobre los filtros
-    //clearFilterInfo(filtersAuthors);
+    // clearFilterInfo(filtersAuthors);
   }, [
     result,
     entradasPorPaginaAutores,
@@ -163,7 +163,7 @@ const Tabla = (props) => {
         <div className="col s12 non-padding">
           <ul className="tabs">
             <li
-              className="tab col s6"
+              className="tab col s4"
               onClick={() => tabsFunction("tabAuthor")}
             >
               <a className="tablinks" href="#!">
@@ -171,7 +171,7 @@ const Tabla = (props) => {
               </a>
             </li>
             <li
-              className="tab col s6"
+              className="tab col s4"
               onClick={() => {
                 tabsFunction("tabPublications"); //llamamos a la funcion que nos da información sobre los filtros
                 clearFilterInfo(filtersAuthors);
@@ -179,6 +179,17 @@ const Tabla = (props) => {
             >
               <a className="tablinks" href="#!">
                 Publications
+              </a>
+            </li>
+            <li
+              className="tab col s4"
+              onClick={() => {
+                tabsFunction("tabErrors"); //llamamos a la funcion que nos da información sobre los filtros
+              }}
+            >
+              <a className="tablinks" href="#!">
+                Errors
+                <span id="errorCounter">{result.errors ? result.errors.length : "0"}</span>
               </a>
             </li>
           </ul>
@@ -311,9 +322,8 @@ const Tabla = (props) => {
                   <th>Core</th>
                 </tr>
               </thead>
-              <div className="scrollit">
-                <tbody id="dataTableAuthors"></tbody>
-              </div>
+              <tbody id="dataTableAuthors"></tbody>
+
             </table>
 
             <div class="footer-tools">
@@ -429,7 +439,22 @@ const Tabla = (props) => {
                 />
               </div>
             </div>
-
+            {/* <div> <span>Type</span>
+                  <span>Authors</span>
+                  <span>Title</span>
+                  <span>Pages</span>
+                  <span>Year</span>
+                  <span>Volumen</span>
+                  <span>Issue</span>
+                  <span id="j_b">
+                    Book_title for inprocedings / Journal for articles
+                  </span>
+                  <span>Acronym</span>
+                  <span>Core</span>
+                  <span>GGS</span>
+                  <span>Citas</span>
+                  <span>JCR</span>
+                </div> */}
             <table className="datatable" id="tablePublications">
               <thead>
                 <tr>
@@ -450,9 +475,9 @@ const Tabla = (props) => {
                   <th>JCR</th>
                 </tr>
               </thead>
-              <div className="scrollit">
-                <tbody id="dataTablePublications"></tbody>
-              </div>
+              <tbody id="dataTablePublications">
+              </tbody>
+
             </table>
 
             <div className="footer-tools">
@@ -477,6 +502,22 @@ const Tabla = (props) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="row tabContent non-display" id="tabErrors">
+        {/* <ul>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
+
+        </ul> */}
       </div>
     </Fragment>
   );

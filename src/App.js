@@ -11,6 +11,8 @@ function App() {
   const [result, setresult] = useState([]);
   //state que mostrara o no el modal
   const [showModal, setShowModal] = useState(false);
+  //state que mostrara o no el modal de errores
+  const [showModalError, setShowModalError] = useState(false);
   //state que muestra los autores en el modal
   const [authorsModal, setauthorsModal] = useState([]);
   //state para los autores elegidos dentro del modal
@@ -45,6 +47,8 @@ function App() {
             setShow={setShow}
             setresult={setresult}
             setShowModal={setShowModal}
+            setShowModalError={setShowModalError}
+            showModalError={showModalError}
             setauthorsModal={setauthorsModal}
             authorsChoosen={authorsChoosen}
             setauthorsChoosen={setauthorsChoosen}

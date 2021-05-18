@@ -4,7 +4,7 @@ import { deleteAuthor, addAuthor } from "../../js/Table/author";
 import axios from "../../config/axios";
 import M from "materialize-css";
 import Spinner from "../Spinner/Spinner";
-
+import ModalError from "../ModalError/ModalError"
 import Slider from "../Slider/slider";
 
 const Formulario = (props) => {
@@ -22,6 +22,8 @@ const Formulario = (props) => {
     setfiltersAuthors,
     filtersAuthors,
     setsanitize,
+    setShowModalError,
+    showModalError
   } = props;
 
   const [number, setnumber] = useState(2);
@@ -80,44 +82,51 @@ const Formulario = (props) => {
     } else {
       //Rellenamos el state con lo que ha ecrito el usuario
       setuserSearch(autores);
-      //hacemos la llamada para ver si ningún autor tiene un homonimo
       //Activamos el spinner mientras carga la petición
       if (checkFilters()) {
+        //hacemos la llamada para ver si ningún autor tiene un homonimo
         setSpinner(true);
         if (await getJson(autores, filtersAuthors)) {
-          //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
-          let choose = false;
-          var ar = [];
-          //Hay algun homonimo
-          if (AuthorsApi.publications === undefined) {
-            AuthorsApi.forEach((elm) => {
-              if (elm.authors.length > 1) {
-                let obj = {};
-                for (let index = 0; index < elm.authors.length; index++) {
-                  obj[index] = elm.authors[index];
-                }
-                ar.push(obj);
-                choose = true;
-              } else {
-                setauthorsChoosen([
-                  {
-                    author: elm.authors[0].author,
-                    link: elm.authors[0].link,
-                  },
-                ]);
-                setnumber(number + 1);
-              }
-            });
-          }
-
-          setauthorsModal(ar);
-          //si existe algún homonimo llamamos al modal y este se encargara de mandarnos los autores elegidos para hacer la segunda peticion en el use Effect
-          if (choose) {
-            setShowModal(true);
-          } else {
-            //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
+          //comprobamos si los autores estan bien esccritos, si no pues modal y reload de la pagina
+          console.log(AuthorsApi);
+          if (AuthorsApi === "un nombre de autor no ha sido encontrado, revisa los nombres") {
             setSpinner(false);
-            setShow(false);
+            setShowModalError(true);
+          } else {
+            //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
+            let choose = false;
+            var ar = [];
+            //Hay algun homonimo
+            if (AuthorsApi.publications === undefined) {
+              AuthorsApi.forEach((elm) => {
+                if (elm.authors.length > 1) {
+                  let obj = {};
+                  for (let index = 0; index < elm.authors.length; index++) {
+                    obj[index] = elm.authors[index];
+                  }
+                  ar.push(obj);
+                  choose = true;
+                } else {
+                  setauthorsChoosen([
+                    {
+                      author: elm.authors[0].author,
+                      link: elm.authors[0].link,
+                    },
+                  ]);
+                  setnumber(number + 1);
+                }
+              });
+            }
+
+            setauthorsModal(ar);
+            //si existe algún homonimo llamamos al modal y este se encargara de mandarnos los autores elegidos para hacer la segunda peticion en el use Effect
+            if (choose) {
+              setShowModal(true);
+            } else {
+              //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
+              setSpinner(false);
+              setShow(false);
+            }
           }
         }
       }
@@ -304,7 +313,7 @@ const Formulario = (props) => {
                         addCheck(e);
                       }}
                     ></span>
-                    <span>Revista</span>
+                    <span>Article</span>
                   </div>
                   <div className="customCheckDiv">
                     <span
@@ -413,6 +422,7 @@ const Formulario = (props) => {
               </button>
             </div>
           </form>
+          {showModalError ? <ModalError /> : null}
         </div>
       )}
     </Fragment>
