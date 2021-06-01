@@ -72,7 +72,7 @@ export const deleteAuthor = () => {
   }
 };
 //funcion que se encarga de hacer la busqueda por nombre en la tabla de autores
-export const searchOnTableAuthors = (json) => {
+export const searchOnTableAuthors = (json,filtersAuthors) => {
   var input, filter;
   //cogemos lo que escribe el usuario
   input = document.getElementById("myInputAuthors");
@@ -94,7 +94,7 @@ export const searchOnTableAuthors = (json) => {
     ++index
   ) {
     if (json.authors[index].name.toUpperCase().includes(filter))
-      auxAuthorsWrite(json, index, dataTableElements);
+      auxAuthorsWrite(json, index, dataTableElements,filtersAuthors);
     elm = json.authors[index];
   }
 };
@@ -120,6 +120,7 @@ export function writeAuthorsOnTable(
 }
 //funcion auxiliar que se usa para escribir los autores en la tabla
 function auxAuthorsWrite(json, index, dataTableAuthors, filtersAuthors) {
+  console.log("ett",filtersAuthors);
   var elm = json.authors[index];
   if (elm !== undefined) {
     var tableHeadAuthors = document.createElement("tr");

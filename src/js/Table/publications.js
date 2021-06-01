@@ -7,7 +7,7 @@ import {
 } from "../utils";
 
 //funcion que se encarga de hacer la busqueda por titulo en publicaciones
-export const searchOnTablePublications = (json) => {
+export const searchOnTablePublications = (json,filtersAuthors) => {
   var input, filter;
   //cogemos lo que escribe el usuario
   input = document.getElementById("myInputPublications");
@@ -25,7 +25,7 @@ export const searchOnTablePublications = (json) => {
 
   for (let index = 0; index < json.publications.length; ++index) {
     if (json.publications[index].title.toUpperCase().includes(filter))
-      auxPublicationsWrite(json, index, dataTableElements);
+      auxPublicationsWrite(json, index, dataTableElements,filtersAuthors);
   }
 };
 

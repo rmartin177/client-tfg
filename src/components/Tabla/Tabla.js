@@ -43,6 +43,7 @@ const Tabla = (props) => {
       entradasPorPaginaPublicaciones,
       filtersAuthors
     );
+    clearFilterInfo(filtersAuthors);
 
     //iniciamos los chips
     var elems = document.querySelectorAll(".chips");
@@ -132,7 +133,8 @@ const Tabla = (props) => {
         paginaActualAutores,
         nEntries,
         paginaActualPublicaciones,
-        entradasPorPaginaPublicaciones
+        entradasPorPaginaPublicaciones,
+        filtersAuthors
       );
       setentradasPorPaginaAutores(nEntries);
       setTotalPaginasAuthors(Math.ceil(result.authors.length / nEntries));
@@ -143,7 +145,8 @@ const Tabla = (props) => {
         paginaActualAutores,
         entradasPorPaginaAutores,
         paginaActualPublicaciones,
-        nEntries
+        nEntries,
+        filtersAuthors
       );
       setentradasPorPaginaPublicaciones(nEntries);
       setTotalPaginasPublicaciones(
@@ -182,14 +185,14 @@ const Tabla = (props) => {
               </a>
             </li>
             <li
-              className="tab col s4"
+              className={`tab col s4 ${result.errors.length === 0 ? "correct" : "no-correct"}`}
               onClick={() => {
                 tabsFunction("tabErrors"); //llamamos a la funcion que nos da información sobre los filtros
               }}
             >
               <a className="tablinks" href="#!">
                 Errors
-                <span id="errorCounter">{result.errors ? result.errors.length : "0"}</span>
+                <span id={`errorCounter ${result.errors.length === 0 ? "correct" : "no-correct"}`}>{result.errors ?`(${result.errors.length})`  : "(0)"}</span>
               </a>
             </li>
           </ul>
@@ -306,7 +309,7 @@ const Tabla = (props) => {
                   id="myInputAuthors"
                   className="search-input"
                   placeholder="Search..."
-                  onKeyUp={() => searchOnTableAuthors(result)}
+                  onKeyUp={() => searchOnTableAuthors(result,filtersAuthors)}
                 />
               </div>
             </div>
@@ -435,26 +438,11 @@ const Tabla = (props) => {
                   id="myInputPublications"
                   className="search-input"
                   placeholder="Search..."
-                  onKeyUp={() => searchOnTablePublications(result)}
+                  onKeyUp={() => searchOnTablePublications(result,filtersAuthors)}
                 />
               </div>
             </div>
-            {/* <div> <span>Type</span>
-                  <span>Authors</span>
-                  <span>Title</span>
-                  <span>Pages</span>
-                  <span>Year</span>
-                  <span>Volumen</span>
-                  <span>Issue</span>
-                  <span id="j_b">
-                    Book_title for inprocedings / Journal for articles
-                  </span>
-                  <span>Acronym</span>
-                  <span>Core</span>
-                  <span>GGS</span>
-                  <span>Citas</span>
-                  <span>JCR</span>
-                </div> */}
+
             <table className="datatable" id="tablePublications">
               <thead>
                 <tr>
@@ -503,21 +491,14 @@ const Tabla = (props) => {
           </div>
         </div>
       </div>
-      <div className="row tabContent non-display" id="tabErrors">
-        {/* <ul>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-          <li>No se ha podido hacer X adsadad ad adas adadsadadada</li>
-
-        </ul> */}
+      <div className={`row tabContent non-display ${result.errors.length === 0 ? "correct" : "no-correct"}`} id="tabErrors">
+      {result.errors.length === 0 ? 
+      <>
+        <ul>
+          <li>The process has been completed without errors :D</li>
+        </ul>
+      </>
+       : null}
       </div>
     </Fragment>
   );
