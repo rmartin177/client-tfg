@@ -237,6 +237,9 @@
 #filtros {
   display: none;
 }
+#dataTablePublications{
+  overflow-y: scroll;
+}
 .tab:hover {
   cursor: pointer;
   background-color: gray;
