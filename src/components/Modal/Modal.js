@@ -11,6 +11,7 @@ const Modal = (props) => {
     setsanitize,
     setSpinner,
     userSearch,
+    indices
   } = props;
   useEffect(() => {
     if (showModal !== false) {
@@ -83,13 +84,12 @@ const Modal = (props) => {
     //vamos a ir creando div para poner las cartas de cada autor
     for (let index = 0; index < listOfAuthors.length; index++) {
       let divPpal = document.createElement("div");
-      //lo mismo lo pongo centrado
       let divName = document.createElement("div");
       let divCards = document.createElement("div");
       divCards.classList.add("flex");
 
       let name = document.createElement("p");
-      name.innerText = "Results for: " + userSearch[index];
+      name.innerText = "Results for: " + userSearch[indices[index]];
       name.classList.add("searchTitles");
       divName.appendChild(name);
       for (let j = 0; j < Object.size(listOfAuthors[index]); j++) {

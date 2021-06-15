@@ -41,6 +41,8 @@ function writeErrors(json) {
     let li = document.createElement("li");
     li.innerText = json.errors[index];
     ul.appendChild(li);
+    let br = document.createElement("br");
+    ul.appendChild(br);
   }
   errorContainer.appendChild(ul);
 }

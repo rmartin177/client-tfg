@@ -21,6 +21,7 @@ function App() {
   const [sanitize, setsanitize] = useState(false);
   //state para el loading
   const [showSpinner, setSpinner] = useState(false);
+  const [indices, setindices] = useState([]);
   //state para lo que busca el usuario poder verlo en el modal
   const [userSearch, setuserSearch] = useState("");
   //state para los filtros
@@ -59,6 +60,7 @@ function App() {
             setfiltersAuthors={setfiltersAuthors}
             filtersAuthors={filtersAuthors}
             setuserSearch={setuserSearch}
+            setindices={setindices}
           />
           {showModal ? (
             <Modal
@@ -69,6 +71,7 @@ function App() {
               setsanitize={setsanitize}
               setSpinner={setSpinner}
               userSearch={userSearch}
+              indices={indices}
             />
           ) : null}
         </Fragment>

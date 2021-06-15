@@ -23,7 +23,8 @@ const Formulario = (props) => {
     filtersAuthors,
     setsanitize,
     setShowModalError,
-    showModalError
+    showModalError,
+    setindices
   } = props;
 
   const [number, setnumber] = useState(2);
@@ -96,15 +97,17 @@ const Formulario = (props) => {
             //Comprobamos todos los homonimos y nos quedamos con ellos para enviarselo al modal
             let choose = false;
             var ar = [];
+            var ar2 =[];
             //Hay algun homonimo
             if (AuthorsApi.publications === undefined) {
-              AuthorsApi.forEach((elm) => {
+              AuthorsApi.forEach((elm,i) => {
                 if (elm.authors.length > 1) {
                   let obj = {};
                   for (let index = 0; index < elm.authors.length; index++) {
                     obj[index] = elm.authors[index];
                   }
                   ar.push(obj);
+                  ar2.push(i);
                   choose = true;
                 } else {
                   setauthorsChoosen([
@@ -121,6 +124,7 @@ const Formulario = (props) => {
             setauthorsModal(ar);
             //si existe algún homonimo llamamos al modal y este se encargara de mandarnos los autores elegidos para hacer la segunda peticion en el use Effect
             if (choose) {
+              setindices(ar2);
               setShowModal(true);
             } else {
               //cuando este todo ok damos paso a la siguiente pantalla y quitamos el spinner
