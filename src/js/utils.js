@@ -103,8 +103,11 @@ export function clearFilterInfo(obj) {
       if (endYear.length > 1) endYear[1].innerHTML = value;
     } else {
       if (value == false) {
+        console.log(key)
+        
         let aux = document.querySelectorAll("." + key);
-        aux[0].classList.add("hidden");
+        console.log(aux)
+        if(aux.length != 0) aux[0].classList.add("hidden");
         if (aux.length > 1) aux[1].classList.add("hidden");
       }
     }

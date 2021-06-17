@@ -37,12 +37,21 @@ function writeErrors(json) {
   let ul = document.createElement("ul");
   console.log(json);
   if(json.errors != undefined){
+    let cont = 0;
   for (let index = 0; index < json.errors.length; index++) {
-    let li = document.createElement("li");
-    li.innerText = json.errors[index];
-    ul.appendChild(li);
-    let br = document.createElement("br");
-    ul.appendChild(br);
+    for (let array2 = 0; array2 < json.errors[index].length; array2++) {
+      cont++;
+      let li = document.createElement("li");
+      let span = document.createElement("span");
+      span.classList.add("errorText");
+      span.innerText = "Error " + cont + ": ";
+      li.appendChild(span);
+      li.appendChild(document.createTextNode(json.errors[index][array2]));
+      ul.appendChild(li);
+      let br = document.createElement("br");
+      ul.appendChild(br);
+    }
+    
   }
   errorContainer.appendChild(ul);
 }

@@ -192,7 +192,6 @@ const Tabla = (props) => {
             >
               <a className="tablinks" href="#!">
                 Errors
-                <span id={`errorCounter ${result.errors.length === 0 ? "correct" : "no-correct"}`}>{result.errors ?`(${result.errors.length})`  : "(0)"}</span>
               </a>
             </li>
           </ul>
